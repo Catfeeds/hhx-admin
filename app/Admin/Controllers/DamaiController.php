@@ -92,8 +92,7 @@ class DamaiController extends Controller
         $grid->created_at('创建时间');
         $grid->updated_at('更新时间');
         $grid->actions(function ($actions) {
-            $actions->disableDelete();
-            $actions->disableView();
+            $actions->disableEdit();
         });
 
         return $grid;
