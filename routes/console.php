@@ -16,3 +16,6 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+Artisan::command('damai', function () {
+    \App\Handlers\DamaiHandler::carbonGet();
+})->describe('大麦同步');

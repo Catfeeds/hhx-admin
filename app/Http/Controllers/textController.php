@@ -15,7 +15,13 @@ class textController extends Controller
     public function text(){
         $name = "林宥嘉";
         $url_one = self::$URL_PRE.$name.'&currPage=1&pageSize=30';
-//        $html = request_get($url_one);
-//        dd($html);
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', $url_one);
+        if($res->getStatusCode()=='200'){
+            $data = json_decode($res->getBody(),true);
+        }
+        $count = $data["pageData"]["maxTotalResults"];
+
+
     }
 }

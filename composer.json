@@ -13,10 +13,12 @@
         "codingyu/ueditor": "^2.0",
         "encore/laravel-admin": "^1.6",
         "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
         "laravel-admin-ext/config": "^1.0",
         "laravel-admin-ext/log-viewer": "^1.0",
         "laravel/framework": "5.8.*",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
