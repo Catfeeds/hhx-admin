@@ -18,3 +18,5 @@ Route::get('/', function () {
 //Route::group([], function (){
 //    Route::post('/', '\Controller@')->name('');
 //});
+
+Route::get('/text', 'TextController@text')->name('text');
