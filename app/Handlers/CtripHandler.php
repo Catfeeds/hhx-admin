@@ -113,6 +113,7 @@ class CtripHandler{
      * 主入口
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
+    //php artisan command:ctrip
     static public function getData(){
         self::mysqlRequest();
     }
