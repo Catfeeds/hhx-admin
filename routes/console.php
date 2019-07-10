@@ -19,3 +19,6 @@ Artisan::command('inspire', function () {
 Artisan::command('damai', function () {
     \App\Handlers\DamaiHandler::carbonGet();
 })->describe('大麦同步');
+Artisan::command('ctrip', function () {
+    \App\Handlers\CtripHandler::getData();
+})->describe('携程同步');
