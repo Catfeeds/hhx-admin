@@ -70,23 +70,7 @@ class DamaiHandler{
         return  self::getDataAll($url_data);
     }
 
-    /**
-     * 保存到redis
-     * @param $datas
-     * @param $name
-     */
-    static public function saveRedis($data ,$name){
-        $redis = app('redis');
-        $key = $name.':'.$data["cityname"];
-        $redis->hmset($key,
-            array('cityname' => $data["cityname"],
-                'nameNoHtml' => $data["nameNoHtml"],
-                'price_str' => $data["price_str"],
-                'showtime' => $data["showtime"],
-                'venue'=>$data["venue"]
-            )
-        );
-    }
+
 
     /**
      * 保存数据库
