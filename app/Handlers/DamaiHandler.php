@@ -76,9 +76,9 @@ class DamaiHandler{
      * 保存数据库
      * @param $datas
      */
-    static public function saveMysql($datas,$name){
+    static public function saveMysql($data){
         $damai = new \App\Models\Damai();
-        $damai ->saveData($datas,$name);
+        $damai ->saveData($data);
     }
 
     /**
@@ -91,8 +91,9 @@ class DamaiHandler{
             $datas = self::getUrl($name);
             if($datas){
                 foreach ($datas as $data){
-                    self::saveMysql($data,$name);
-                    self::saveRedis($data,$name);
+                    $data['actors'] = $name;
+                    self::saveMysql($data);
+//                    self::saveRedis($data,$name);
                     unset($data);
                 }
                 unset($datas);
