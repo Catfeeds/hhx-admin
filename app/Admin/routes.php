@@ -14,5 +14,6 @@ Route::group([
     $router->resource('damai', 'DamaiController');
     $router->resource('ctrip', 'CtripController');
     $router->post('ctrip/sync_data', 'CtripController@syncData');
+    $router->post('damai/sync_data', 'DamaiController@syncData');
 
 });
