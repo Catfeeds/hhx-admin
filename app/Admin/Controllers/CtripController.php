@@ -2,8 +2,11 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Extensions\Tools\SyncCtrip;
+use App\Handlers\CtripHandler;
 use App\Models\Ctrip;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -93,6 +96,15 @@ class CtripController extends Controller
         });
         $grid->created_at('创建时间');
         $grid->updated_at('更新时间');
+        $grid->tools(function ($tools) {
+            $tools->append(new SyncCtrip());
+//            $importButton = <<<EOF
+//        <a href="javascript:sync()" class="btn btn-sm btn-info">
+//        <i class="fa fa-wrench"></i>同步数据</a>
+//EOF;
+//            $tools->append($importButton);
+        });
+
 
         return $grid;
     }
@@ -134,10 +146,12 @@ class CtripController extends Controller
         $form->text('arrAirportCode', '到达机场代码');
         $form->text('depAirportName', '出发城市');
         $form->text('arrAirportName', '到达城市');
-        $form->text('minDate', '最低日期');
         $form->text('minPrice', '最低价格');
         $form->radio('status','Status')->options(['0' => '不爬取', '1'=> '爬取'])->default('0');
-//        $form->number('status', 'Status');
         return $form;
+    }
+
+    public function syncData(){
+       CtripHandler::getData();
     }
 }

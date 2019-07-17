@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('damai')->days();
-         $schedule->command('ctrip')->days();
+         $schedule->command('damai')->hourly();
+         $schedule->command('ctrip')->hourly();
     }
 
     /**
