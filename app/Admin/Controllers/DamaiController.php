@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Extensions\Tools\SyncDamai;
 use App\Models\Damai;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -94,6 +95,14 @@ class DamaiController extends Controller
         $grid->actions(function ($actions) {
             $actions->disableEdit();
         });
+        $grid->tools(function ($tools) {
+            $tools->append(new SyncDamai());
+//            $importButton = <<<EOF
+//        <a href="javascript:sync()" class="btn btn-sm btn-info">
+//        <i class="fa fa-wrench"></i>同步数据</a>
+//EOF;
+//            $tools->append($importButton);
+        });
 
         return $grid;
     }
@@ -140,5 +149,9 @@ class DamaiController extends Controller
         $form->text('showstatus', '状态');
 
         return $form;
+    }
+
+    public function syncData(){
+        \App\Handlers\DamaiHandler::carbonGet();
     }
 }
