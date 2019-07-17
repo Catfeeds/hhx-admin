@@ -361,6 +361,20 @@ return [
                 'initialFrameHeight' => 400, // 例如初始化高度
             ],
             // 'field_type' => '自定义名字'
+        ],
+        'env' => [
+            // set to false if you want to disable this extension
+            'enable' => true,
+        ],
+        'daterangepicker' => [
+
+            // Set to `false` if you want to disable this extension
+            'enable' => true,
+
+            // Find more configurations http://www.daterangepicker.com/
+            'config' => [
+
+            ]
         ]
     ],
 ];

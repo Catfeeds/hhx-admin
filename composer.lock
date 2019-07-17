@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1721b9403d15e0185283fca07bf83bc1",
+    "content-hash": "0876ff6608e2733ba6114aaf41c701e3",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -1578,6 +1578,65 @@
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
+            "name": "james.xue/laravel-admin-env",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xiaoxuan6/laravel-admin-env.git",
+                "reference": "94482a8f8281232216febd50e19214a32745eac4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xiaoxuan6/laravel-admin-env/zipball/94482a8f8281232216febd50e19214a32745eac4",
+                "reference": "94482a8f8281232216febd50e19214a32745eac4",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "encore/laravel-admin": "~1.6",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "James\\Env\\EnvServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "James\\Env\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "james.xue",
+                    "email": "1527736751@qq.com"
+                }
+            ],
+            "description": "laravel-admin env管理",
+            "homepage": "https://github.com/xiaoxuan6/laravel-admin-env",
+            "keywords": [
+                "env",
+                "extension",
+                "laravel-admin"
+            ],
+            "time": "2019-07-08T10:38:53+00:00"
+        },
+        {
             "name": "justinrainbow/json-schema",
             "version": "5.2.8",
             "source": {
@@ -1708,6 +1767,66 @@
                 "setting"
             ],
             "time": "2018-12-12T04:03:36+00:00"
+        },
+        {
+            "name": "laravel-admin-ext/daterangepicker",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-admin-extensions/daterangepicker.git",
+                "reference": "f38de46062203973ecfea1ab4092839eef77e269"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-admin-extensions/daterangepicker/zipball/f38de46062203973ecfea1ab4092839eef77e269",
+                "reference": "f38de46062203973ecfea1ab4092839eef77e269",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "encore/laravel-admin": "~1.6",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Encore\\DateRangePicker\\DateRangePickerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Encore\\DateRangePicker\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "song",
+                    "email": "zosong@126.com"
+                }
+            ],
+            "description": "Integrates daterangepicker into laravel-admin",
+            "homepage": "https://github.com/laravel-admin-ext/daterangepicker",
+            "keywords": [
+                "daterangepicker",
+                "extension",
+                "form",
+                "laravel-admin"
+            ],
+            "time": "2018-09-13T17:50:59+00:00"
         },
         {
             "name": "laravel-admin-ext/log-viewer",
