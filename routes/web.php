@@ -20,3 +20,5 @@ Route::get('/', function () {
 //});
 
 Route::get('/text', 'TextController@text')->name('text');
+Route::get('/basic', 'Basic\BasicController@getPic');
+Route::post('/uploadFiles', 'UploadsController@uploadImg');
