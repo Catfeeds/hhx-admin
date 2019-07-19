@@ -104,8 +104,6 @@ class CtripHandler{
             $arr = self::parseData($url,$data,$value->toArray());
             $ctrip = new Ctrip();
             $ctrip->saveData($arr);
-            dd('c');
-
         }
     }
 
