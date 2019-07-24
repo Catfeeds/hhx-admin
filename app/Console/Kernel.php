@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('damai')->hourly();
          $schedule->command('ctrip')->hourly();
+         $schedule->command('weibo')->hourly();
     }
 
     /**
