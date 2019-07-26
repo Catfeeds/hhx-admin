@@ -3,13 +3,14 @@
 namespace App\Jobs;
 
 use App\Models\Weibo;
+use App\Models\WeiboPics;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Storage;
+
 
 
 class WeiboPic implements ShouldQueue
@@ -33,48 +34,43 @@ class WeiboPic implements ShouldQueue
      */
     public function handle()
     {
-        $client = new \GuzzleHttp\Client();
-        $data =[];
+        //微博表中图片更新
         $num = 0;
-        Weibo::whereNull('updated_at')->whereNotNull('thumbnail_pic')->select('id','thumbnail_pic')->chunk(100, function ($weibos)use($num,$client) {
+        Weibo::whereNull('updated_at')->whereNotNull('thumbnail_pic')->select('id','thumbnail_pic')->chunk(100, function ($weibos)use($num) {
             foreach ($weibos as $weibo){
                 if($weibo->thumbnail_pic){
-//                    $num = $num +1;
-//                    $e = time().$num .'.jpg';
-//                    $filename ='uploads/new_weibo/'.$e;
                     $url = $weibo->thumbnail_pic;
-//                    $client = new Client(['verify'=>false]);
-//                    $response = $client->get($url,['save_to'=>$filename]);
-//                    if(file_exits($filename)){
-//                        dd("下载成功");
-//                    }
-
-                    try {
-
-                        $client = new \GuzzleHttp\Client();
-
-                        $data = $client->request('get',$url)->getBody()->getContents();
-
-                        Storage::disk('local')->put('filename', $data);
-
-                    } catch (\GuzzleHttp\RequestException $e) {
-                        dd($e->getMessage());
-                        echo 'fetch fail';
-
-                    }
-//                    $return_content = $client->request('GET', $url);
-
-//                    $fp= @fopen($filename,"a"); //将文件绑定到流
-//                    fwrite($fp,$return_content); //写入文件
-//                    $data[$weibo->id] = 'new_weibo/'.$e;
+                    $num = $num +1;
+                    $e = time().$num .'.jpg';
+                    $filename ='uploads/new_weibo/'.$e;
+                    $client = new Client(['verify' => false]);  //忽略SSL错误
+                    $data[$weibo->id] = 'new_weibo/'.$e;
+                    $client->get($url, ['save_to' => public_path($filename)]);
                 }
-                dd('8');
+            }
+            if(!empty($data)){
+                foreach ($data as $k =>$v){
+                    $we = Weibo::where('id',$k)->first();
+                    $we ->thumbnail_pic = $v;
+                    $we ->save();
+                }
+            }
+
+        });
+        WeiboPics::whereNull('updated_at')->select('id','url')->chunk(100, function ($weiboPic)use($num) {
+            foreach ($weiboPic as $pic){
+                if($pic->url){
+                    $url = $pic->url;
+                    $num = $num +1;
+                    $e = time().$num .'.jpg';
+                    $filename ='uploads/weibo_pics/'.$e;
+                    $client = new Client(['verify' => false]);  //忽略SSL错误
+                    $client->get($url, ['save_to' => public_path($filename)]);
+                    $pic ->url = 'weibo_pics/'.$e;
+                    $pic->save();
+
+                }
             }
         });
-        foreach ($data as $k =>$v){
-            $we = Weibo::where('id',$k)->first();
-            $we ->thumbnail_pic = $v;
-            $we ->save();
-        }
     }
 }

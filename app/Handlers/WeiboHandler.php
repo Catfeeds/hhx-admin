@@ -27,8 +27,11 @@ class WeiboHandler
 //    主程序
     static public function getData(){
         # [uid :1836758555,q:Hhx_06]
-        $uid = '1836758555';
-        $q = 'Hhx_06';
+//        [uid :1822796164,q:吴青峰]
+//        [uid :1779763091,q:Yyy_07]
+//        [uid :1751035982,q:田馥甄]
+        $uid = '1751035982';
+        $q = '田馥甄';
         $luicode = '10000011';
         $all = '100103type= 1&q='.$q;
         $lfid = urlencode($all);
@@ -42,8 +45,7 @@ class WeiboHandler
         $data1 = self::getHtml($url1)['data']['userInfo'];
         $weiboUser = new WeiboUser();
         $us =$weiboUser ->saveData($data1);
-//        $count = ceil($data1['statuses_count']/10);
-        $count = 2;
+        $count = ceil($data1['statuses_count']/10);
         for($i=1;$i<=$count;$i++){
             print($i);
             $url2 = 'https://m.weibo.cn/api/container/getIndex?uid='.$uid.'&luicode='.$luicode.'&lfid'.$lfid.'&type='.$type.'&value='.$value.'&containerid='.$containerid2.'&page='.$i;
@@ -57,41 +59,5 @@ class WeiboHandler
 
     }
 
-    static public function parsePic(){
-        $data =[];
-        $num = 0;
-        $weibos = Weibo::whereNull('updated_at')->whereNotNull('thumbnail_pic')->select('id','thumbnail_pic')->get();
-        foreach ($weibos as $weibo){
-            if($weibo->thumbnail_pic){
-                $url = $weibo->thumbnail_pic;
-                $return_content = self::http_get_data($url);
-                $num = $num +1;
-                $e = time().$num .'.jpg';
-                $filename ='uploads/new_weibo/'.$e;
-                $fp= @fopen($filename,"a"); //将文件绑定到流
-                fwrite($fp,$return_content); //写入文件
-                $data[$weibo->id] = 'weibo/'.$e;
-            }
-        }
-        foreach ($data as $k =>$v){
-            $we = Weibo::where('id',$k)->first();
-            $we ->thumbnail_pic = $v;
-            $we ->save();
-        }
-    }
-
-    static public function http_get_data($url) {
-
-        $ch = curl_init ();
-        curl_setopt ( $ch, CURLOPT_CUSTOMREQUEST, 'GET' );
-        curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, false );
-        curl_setopt ( $ch, CURLOPT_URL, $url );
-        ob_start ();
-        curl_exec ( $ch );
-        $return_content = ob_get_contents ();
-        ob_end_clean ();
-        $return_code = curl_getinfo ( $ch, CURLINFO_HTTP_CODE );
-        return $return_content;
-    }
 
 }

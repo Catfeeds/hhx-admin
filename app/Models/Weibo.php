@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\WeiboPic;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +47,7 @@ class Weibo extends Model
         }
         unset($data_all);
         unset($pic_all);
+        dispatch(new WeiboPic());
     }
 
     public function parseData($data){

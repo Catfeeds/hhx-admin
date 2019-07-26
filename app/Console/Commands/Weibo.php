@@ -39,8 +39,8 @@ class Weibo extends Command
      */
     public function handle()
     {
-//        WeiboHandler::parsePic();
-        dispatch(new WeiboPic());
+        WeiboHandler::getData();
+
 
     }
 }

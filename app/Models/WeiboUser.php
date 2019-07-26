@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Jobs\WeiboUserPic;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class WeiboUser extends Model
@@ -13,15 +15,18 @@ class WeiboUser extends Model
 //        $data_us = $data->only('avatar_hd','cover_image_phone','description','follow_count','followers_count','gender','id','mbrank','mbtype','screen_name','statuses_count');
         $weibo_user = $this->SearchData($data);
         if(!$weibo_user){
+
             $data['weibo_id'] = $data['id'];
+            $data['created_at'] = now();
             unset($data['id']);
-            $this->create($data);
+            DB::table('weibo_users')->insert($data);
+            unset($data);
             $us = [
                 'new'=>1,
                 'wcount' =>0
             ];
         }else{
-            Log::info($data);
+            Log::info('updated');
             $weibo_user->updated_at = now();
             $weibo_user->update($data);
             $max = Weibo::where('weibo_id',$weibo_user->weibo_id)->where('is_flag',0)->max('weibo_info_id');
@@ -30,6 +35,7 @@ class WeiboUser extends Model
                 'wcount' =>$max?$max:0
             ];
         }
+        dispatch(new WeiboUserPic());
         return $us;
     }
 

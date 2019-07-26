@@ -112,7 +112,7 @@ class WqfController extends Controller
                     $num ++;
                     $data_u[$num] = '<img src=" '.env('APP_URL')."/uploads/".$pic->url.'">';
                 }
-            }elseif($model->pic_num ==1){
+            }elseif($model->pic_num ==1 && $model->thumbnail_pic!=''){
                 $data_u['1'] = '<img src=" '.env('APP_URL')."/uploads/".$model->thumbnail_pic .'">';
             }
             else{
