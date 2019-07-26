@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Handlers\WeiboHandler;
 use App\Models\Weibo;
 use App\Http\Controllers\Controller;
 use App\Models\WeiboPics;
@@ -142,6 +143,9 @@ class WeiboController extends Controller
         });
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
+        $grid->tools(function ($tools) {
+            $tools->append(new SyncWeibo());
+        });
 
         return $grid;
     }
@@ -199,5 +203,9 @@ class WeiboController extends Controller
         $form->number('repost_id', 'Repost id');
 
         return $form;
+    }
+
+    public function syncData(){
+        WeiboHandler::getData();
     }
 }

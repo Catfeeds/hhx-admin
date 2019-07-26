@@ -15,10 +15,12 @@ Route::group([
     $router->resource('ctrip', 'CtripController');
     $router->post('ctrip/sync_data', 'CtripController@syncData');
     $router->post('damai/sync_data', 'DamaiController@syncData');
+    $router->post('weibo/sync_data', 'WeiboController@syncData');
     $router->resource('weibos', 'WeiboController');
     $router->resource('hhx', 'HhxController');
     $router->resource('hebe', 'HebeController');
     $router->resource('yyy', 'YyyController');
     $router->resource('mycf', 'MycfController');
+    $router->resource('wqf', 'WqfController');
 
 });
