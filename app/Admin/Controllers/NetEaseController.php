@@ -90,7 +90,7 @@ class NetEaseController extends Controller
         $grid->singNo('SingNo');
         $grid->songNo('SongNo');
         $grid->singName('SingName');
-        $grid->songUrl('SongUrl');
+        $grid->songUrl('SongUrl')->audio(['server' => env('APP_URL').'/']);
         $grid->songLyric('SongLyric');
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
