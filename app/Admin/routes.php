@@ -22,5 +22,7 @@ Route::group([
     $router->resource('yyy', 'YyyController');
     $router->resource('mycf', 'MycfController');
     $router->resource('wqf', 'WqfController');
+    $router->resource('net_ease', 'NetEaseController');
+    $router->post('net_ease/import', 'NetEaseController@import');
 
 });

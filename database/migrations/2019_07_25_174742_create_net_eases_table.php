@@ -16,7 +16,7 @@ class CreateNetEasesTable extends Migration
         Schema::create('net_eases', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('singNo',32)->default('')->comment('歌手编号');
-            $table->string('songNo',32)->default('')->comment('歌曲编号');
+            $table->string('songNo',255)->default('')->comment('歌曲编号');
             $table->string('singName',32)->default('')->comment('歌手名字');
             $table->string('songUrl',64)->default('')->comment('歌曲链接');
             $table->string('songLyric',64)->default('')->comment('歌曲链接');
