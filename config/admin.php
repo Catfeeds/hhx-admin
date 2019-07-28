@@ -354,7 +354,7 @@ return [
         'ueditor' => [
 
             // 如果要关掉这个扩展，设置为false
-            'enable' => true,
+            'enable' => false,
 
             // 编辑器的前端配置 参考：http://fex.baidu.com/ueditor/#start-config
             'config' => [

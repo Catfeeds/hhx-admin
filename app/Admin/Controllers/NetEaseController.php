@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Csvs;
 use App\Models\NetEase;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -12,6 +13,7 @@ use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use League\Csv\Reader;
 use League\Flysystem\Exception;
+use Encore\Admin\Widgets\Table;
 
 class NetEaseController extends Controller
 {
@@ -23,11 +25,12 @@ class NetEaseController extends Controller
      * @param Content $content
      * @return Content
      */
+    protected $headName = "netEase";
     public function index(Content $content)
     {
         return
             $content
-            ->header('Index')
+            ->header($this->headName)
             ->description('description')
             ->row(view('admin.ImportPopup'))
             ->body($this->grid());
@@ -43,7 +46,7 @@ class NetEaseController extends Controller
     public function show($id, Content $content)
     {
         return $content
-            ->header('Detail')
+            ->header($this->headName)
             ->description('description')
             ->body($this->detail($id));
     }
@@ -58,7 +61,7 @@ class NetEaseController extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('Edit')
+            ->header($this->headName)
             ->description('description')
             ->body($this->form()->edit($id));
     }
@@ -72,7 +75,7 @@ class NetEaseController extends Controller
     public function create(Content $content)
     {
         return $content
-            ->header('Create')
+            ->header($this->headName)
             ->description('description')
             ->body($this->form());
     }
@@ -87,11 +90,29 @@ class NetEaseController extends Controller
         $grid = new Grid(new NetEase);
 
         $grid->id('Id');
-        $grid->singNo('SingNo');
+//        $grid->singNo('SingNo');
         $grid->songNo('SongNo');
         $grid->singName('SingName');
+        $grid->songName('SongName');
         $grid->songUrl('SongUrl')->audio(['server' => env('APP_URL').'/']);
-        $grid->songLyric('SongLyric');
+        $grid->songLyric('SongLyric')->modal('Lyric', function ($model) {
+            $filenames =  env('APP_URL').'/'.$model->songLyric;
+            $filename= fopen($filenames, "r");
+            $data_us = [];
+            $num =0;
+            $data_us['歌曲'] = $model->songName;
+            while(! feof($filename))
+            {
+                $content = fgets($filename); //逐行取出
+                $num++;
+                $data_us[(string)$num] = $content;
+            }
+            fclose($filename);
+//            dd($data_us);
+//            $h1 = implode(" ", $data_us);
+
+            return new Table(['key', 'value'], $data_us);
+        });;
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
         $grid->tools(function ($tool) {
@@ -154,44 +175,18 @@ EOF;
         ini_set('memory_limit','2048M');
         ini_set('max_execution_time',3600);
         $request = \request();
-        $validFields = config('system.app_account.export_fields');
         $file = $request->file('file');
-        $items = [];
-        dd($file);
-        $tableStructure = \DB::select("describe net_eases");
-        $tableFields = collect($tableStructure)->pluck('Field')->toArray();
-
-//        字段名黑名单，表结构里有，但配置的白名单里没有，需要过滤
-//        $invalidFields = array_diff_key(array_flip($tableFields), $validFields);
-
         if (!$file->isValid()) {
             return ['status_code' => 10001, 'message' => '上传失败'];
         }
         if (!in_array($file->getMimeType(), ['text/plain'])) {
             return ['status_code' => 10002, 'message' => '请上传csv文件'];
         }
-        try{
-            $csv = Reader::createFromPath($file->getRealPath(), 'r')->setHeaderOffset(0);
-        }catch (Exception $e){
-            return ['status_code' => 10003, 'message' => '读取csv文件失败'];
-        }
-
-        foreach ($csv as $data){
-            $data_us ['songName']=$data['music'];
-            $data_us ['songNo']=$data['link'];
-            $ed = explode(",",$data['artist_name']);
-            $data_us ['singName']= $ed[0];
-            $data_us ['singNo']= $ed[0];
-            $data_us ['songUrl'] = 'data/'.$ed[0].'/'.$data['music'].'.mp3';
-            $data_us ['songLyric'] = 'data/'.$ed[0].'/'.$data['music'].'.txt';
-            $data_us ['created_at'] = Carbon::now();
-            $items[] = $data_us;
-        }
-        $chunks = array_chunk($items, 10);
-        foreach ($chunks as $chunk) {
-            NetEase::insert($chunk);
-        }
-        $added_amount = count($items);
-        return ['status_code' => 200, 'message' => "新增{$added_amount}条"];
+        $path = $request->file('file')->store('file');
+        $data['file'] = $path;
+        $data['status'] =0;
+        $csv =new Csvs();
+        $csv->create($data);
+        return ['status_code' => 200, 'message' => $data['file']];
     }
 }
