@@ -15,25 +15,31 @@ class WeiboUser extends Model
 //        $data_us = $data->only('avatar_hd','cover_image_phone','description','follow_count','followers_count','gender','id','mbrank','mbtype','screen_name','statuses_count');
         $weibo_user = $this->SearchData($data);
         if(!$weibo_user){
-
             $data['weibo_id'] = $data['id'];
             $data['created_at'] = now();
             unset($data['id']);
             DB::table('weibo_users')->insert($data);
             unset($data);
             $us = [
-                'new'=>1,
-                'wcount' =>0
+                'status'=>0,
+                //新用户 小于的都保存
+                'flag' =>0,
             ];
         }else{
-            Log::info('updated');
             $weibo_user->updated_at = now();
             $weibo_user->update($data);
-            $max = Weibo::where('weibo_id',$weibo_user->weibo_id)->where('is_flag',0)->max('weibo_info_id');
+            if($weibo_user->status ==0){
+                $flag = Weibo::where('weibo_id',$weibo_user->weibo_id)->where('is_flag',0)->min('weibo_info_id');
+                $status = 0;
+            }else{
+                $flag = Weibo::where('weibo_id',$weibo_user->weibo_id)->where('is_flag',0)->max('weibo_info_id');
+                $status = 1;
+            }
             $us =[
-                'new'=>0,
-                'wcount' =>$max?$max:0
+                'status'=>$status,
+                'flag' =>$flag,
             ];
+
         }
         dispatch(new WeiboUserPic());
         return $us;

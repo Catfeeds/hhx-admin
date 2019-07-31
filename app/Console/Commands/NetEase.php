@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\SyncNet;
 use App\Models\Csvs;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -40,35 +41,45 @@ class NetEase extends Command
      */
     public function handle()
     {
-        $csvc = Csvs::whereStatus(0)->whereType(0)->get();
-        $firstline = true;
-        $items =[];
-        foreach($csvc as $csv){
-            $file_path = storage_path('app/'.$csv->file);
-            $file = fopen($file_path, 'r');
-            while($data = fgetcsv($file)) {
-                if($firstline){
-                    $firstline = false;
-                    continue;
-                }
-                $data_us ['songName']=$data[0];
-                $data_us ['songNo']=$data[1];
-                $data_us ['singNo']='12709';
-                $data_us ['singName']= 'S.H.E';
-                $data_us ['songUrl'] = 'data/'.$data_us ['singName'].'/'.$data[0].'.mp3';
-                $data_us ['songLyric'] = 'data/'.$data_us ['singName'].'/'.$data[0].'.txt';
-                $data_us ['created_at'] = Carbon::now();
-                $items [] = $data_us;
-            }
-            $csv->status = 1;
-            $csv->updated_at = Carbon::now();
-            $csv->save();
+//        $csvc = Csvs::whereStatus(0)->whereType(0)->get();
+//        $firstline = true;
+//        $items =[];
+//        foreach($csvc as $csv){
+//            $file_path = storage_path('app/'.$csv->file);
+//            $file = fopen($file_path, 'r');
+//            while($data = fgetcsv($file)) {
+//                if($firstline){
+//                    $firstline = false;
+//                    continue;
+//                }
+//                $data_us ['songName']=$data[0];
+//                $data_us ['songNo']=$data[1];
+//                $data_us ['singNo']='12709';
+//                $data_us ['singName']= 'S.H.E';
+//                $data_us ['songUrl'] = 'data/'.$data_us ['singName'].'/'.$data[0].'.mp3';
+//                $data_us ['songLyric'] = 'data/'.$data_us ['singName'].'/'.$data[0].'.txt';
+//                $data_us ['created_at'] = Carbon::now();
+//                $items [] = $data_us;
+//            }
+//            $csv->status = 1;
+//            $csv->updated_at = Carbon::now();
+//            $csv->save();
+//        }
+//        $chunks = array_chunk($items, 10);
+//        foreach ($chunks as $chunk) {
+//            DB::table('net_eases')->insert($chunk);
+//        }
+//        $added_amount = count($items);
+//        dd('新增'.$added_amount.'条');
+//        dispatch(new SyncNet());
+
+        $nets = \App\Models\NetEase::whereNull('localUrl')->get();
+        $now = Carbon::now();
+        foreach ($nets as $net){
+            $net->localUrl = '/data/'.$net->singName.'/'.$net->songName.'.mp3';
+            $net->updated_at = $now;
+            $net->save();
         }
-        $chunks = array_chunk($items, 10);
-        foreach ($chunks as $chunk) {
-            DB::table('net_eases')->insert($chunk);
-        }
-        $added_amount = count($items);
-        dd('新增'.$added_amount.'条');
+        dd('end');
     }
 }

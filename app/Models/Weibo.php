@@ -13,12 +13,8 @@ class Weibo extends Model
     protected $guarded=[];
     public function saveData($data,$us){
         foreach ($data as $value){
-//            if($value['mblog']['id'] >$us['wcount']|| $us['new']==1){
-//                Log::info('WUQINGXIN');
-//                dd('wu');
-//            }
-            if(!$value){
-                dd('wushuju');
+            if(!$value||($us['status'] ==1 && $value['mblog']['id']<=$us['flag'])||($us['status'] ==0 && $value['mblog']['id']>=$us['flag']&&$us['flag']>0)){
+                break;
             }
             if(isset($value['mblog']['retweeted_status'])){
                 $data_one = $this->parseData($value['mblog']['retweeted_status']);
@@ -41,9 +37,10 @@ class Weibo extends Model
                 }
             }
         }
-        DB::table('weibos')->insert($data_all);
+
         if(isset($pic_all) && !empty($data_all)){
             DB::table('weibo_pics')->insert($pic_all);
+            DB::table('weibos')->insert($data_all);
         }
         unset($data_all);
         unset($pic_all);

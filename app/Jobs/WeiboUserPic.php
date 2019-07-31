@@ -32,11 +32,11 @@ class WeiboUserPic implements ShouldQueue
     public function handle()
     {
         //用户头像以及封面
-        $weiboUsers = WeiboUser::whereNull('updated_at')->select('id','avatar_hd','cover_image_phone')->get();
+        $weiboUsers = WeiboUser::select('id','avatar_hd','cover_image_phone')->get();
         $num =0;
         $num2 =100;
         foreach ($weiboUsers as $user){
-            if($user->avatar_hd){
+            if($user->avatar_hd && strpos($user->avatar_hd,'https') !== false){
                 $url = $user->avatar_hd;
                 $num = $num +1;
                 $e = time().$num .'.jpg';

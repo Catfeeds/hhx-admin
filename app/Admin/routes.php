@@ -23,6 +23,8 @@ Route::group([
     $router->resource('mycf', 'MycfController');
     $router->resource('wqf', 'WqfController');
     $router->resource('net_ease', 'NetEaseController');
+    $router->resource('csv', 'CsvController');
+    $router->resource('weibo_user', 'WeiboUserController');
     $router->post('net_ease/import', 'NetEaseController@import');
 
 });

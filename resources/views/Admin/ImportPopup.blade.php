@@ -67,8 +67,10 @@
             data: formData,
             cache: false,
             contentType: false,
-            processData: false
+            processData: false,
+
         });
+        layer.closeAll();
     };
 
     $(function () {
@@ -85,15 +87,13 @@
 
 </script>
 <div id="importLayer" style="display: none;clear: both">
-
     <div class="box-body" style="text-align: center">
         <div class="form-group" style="margin-top: 10px">
-            <p><a target="_blank" href="/static/import_{{Route::currentRouteName()}}.csv">下载实例csv文件</a></p>
+{{--            <p><a target="_blank" href="/static/import_{{Route::currentRouteName()}}.csv">下载实例csv文件</a></p>--}}
         </div>
         <hr>
         <div class="form-group" style="text-align: center">
             <input type="file" id="importFile" style="margin-left: 50px">
-            <!--<p class="help-block" style="margin-top: 20px">请务必严格按照模板填写信息</p>-->
         </div>
     </div>
     <!-- /.box-body -->
