@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Extensions\Tools\SyncWeibo;
+use App\Admin\Extensions\WeiboExporter;
 use App\Models\Weibo;
 use App\Http\Controllers\Controller;
 use App\Models\WeiboPics;
@@ -144,6 +145,7 @@ class HhxController extends Controller
         });
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
+        $grid->exporter(new WeiboExporter());
 
 
         return $grid;

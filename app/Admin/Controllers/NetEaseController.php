@@ -157,5 +157,5 @@ class NetEaseController extends Controller
         $form->text('songName', 'SongName');
         return $form;
     }
-    
+
 }
