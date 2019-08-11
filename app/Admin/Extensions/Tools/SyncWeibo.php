@@ -10,9 +10,11 @@ namespace App\Admin\Extensions\Tools;
 
 use Encore\Admin\Admin;
 use Encore\Admin\Grid\Tools\AbstractTool;
+use Illuminate\Support\Facades\Log;
 
 class SyncWeibo extends AbstractTool
 {
+
     protected function script()
     {
         return <<<EOT

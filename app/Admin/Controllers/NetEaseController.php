@@ -90,39 +90,34 @@ class NetEaseController extends Controller
         $grid = new Grid(new NetEase);
 
         $grid->id('Id');
-//        $grid->singNo('SingNo');
-        $grid->songNo('SongNo');
+        $grid->singNo('SingNo');
         $grid->singName('SingName');
         $grid->songName('SongName');
-        $grid->songUrl('SongUrl')->audio(['server' => env('APP_URL').'/']);
-        $grid->songLyric('SongLyric')->modal('Lyric', function ($model) {
-            $filenames =  env('APP_URL').'/'.$model->songLyric;
-            $filename= fopen($filenames, "r");
-            $data_us = [];
-            $num =0;
-            $data_us['歌曲'] = $model->songName;
-            while(! feof($filename))
-            {
-                $content = fgets($filename); //逐行取出
-                $num++;
-                $data_us[(string)$num] = $content;
-            }
-            fclose($filename);
-//            dd($data_us);
-//            $h1 = implode(" ", $data_us);
+        $grid->songUrl('SongUrl');
+        $grid->localUrl()->video(['server' => env('APP_URL'),'videoWidth' => 480, 'videoHeight' => 480]);
+        $grid->column('SongLyric')->modal(function () {
+            $filenames =  env('APP_URL').'/data/'.$this->singName.'/'.$this->songName.'.txt';
+            $h = './data/'.$this->singName.'/'.$this->songName.'.txt';
 
-            return new Table(['key', 'value'], $data_us);
-        });;
+            if(file_exists($h)){
+                $filename= fopen($filenames, "r");
+                $data_us = [];
+                $num =0;
+                $data_us['歌曲'] = $this->songName;
+                while(! feof($filename))
+                {
+                    $content = fgets($filename); //逐行取出
+                    $num++;
+                    $data_us[(string)$num] = $content;
+                }
+                fclose($filename);
+                return new Table(['key', 'value'], $data_us);
+            }
+
+        });
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
-        $grid->tools(function ($tool) {
-            $importButton = <<<EOF
-        <a href="javascript:initLayer()" class="btn btn-sm btn-info">
-        <i class="fa fa-cloud"></i>&nbsp;&nbsp;导入
- </a>
-EOF;
-            $tool->append($importButton);
-        });
+        $grid->paginate(10);
         return $grid;
     }
 
@@ -138,10 +133,9 @@ EOF;
 
         $show->id('Id');
         $show->singNo('SingNo');
-        $show->songNo('SongNo');
         $show->singName('SingName');
+        $show->songName('SongName');
         $show->songUrl('SongUrl');
-        $show->songLyric('SongLyric');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -158,35 +152,10 @@ EOF;
         $form = new Form(new NetEase);
 
         $form->text('singNo', 'SingNo');
-        $form->text('songNo', 'SongNo');
         $form->text('singName', 'SingName');
         $form->text('songUrl', 'SongUrl');
-        $form->text('songLyric', 'SongLyric');
-
+        $form->text('songName', 'SongName');
         return $form;
     }
 
-    /**
-     * 导入数据
-     * @return array
-     */
-    public function import()
-    {
-        ini_set('memory_limit','2048M');
-        ini_set('max_execution_time',3600);
-        $request = \request();
-        $file = $request->file('file');
-        if (!$file->isValid()) {
-            return ['status_code' => 10001, 'message' => '上传失败'];
-        }
-        if (!in_array($file->getMimeType(), ['text/plain'])) {
-            return ['status_code' => 10002, 'message' => '请上传csv文件'];
-        }
-        $path = $request->file('file')->store('file');
-        $data['file'] = $path;
-        $data['status'] =0;
-        $csv =new Csvs();
-        $csv->create($data);
-        return ['status_code' => 200, 'message' => $data['file']];
-    }
 }

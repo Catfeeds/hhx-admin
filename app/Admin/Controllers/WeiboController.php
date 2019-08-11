@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Extensions\Tools\SyncWeibo;
 use App\Handlers\WeiboHandler;
 use App\Models\Weibo;
 use App\Http\Controllers\Controller;
@@ -162,7 +163,6 @@ class WeiboController extends Controller
 
         $show->id('Id');
         $show->screen_name('微博用户名');
-//        $show->text('内容');
         $show->text('text')->unescape();
         $show->thumbnail_pic('缩略图')->image();
         $show->original_pic('pic')->image();

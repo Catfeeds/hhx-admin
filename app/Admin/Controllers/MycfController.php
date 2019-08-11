@@ -85,7 +85,7 @@ class MycfController extends Controller
     protected function grid()
     {
         $grid = new Grid(new Weibo);
-        $grid->model()->where('is_flag', '=', 0)->where('weibo_id',$this->wei_id);
+        $grid->model()->where('is_flag', '=', 0)->where('weibo_id',$this->wei_id)->orderBy('weibo_info_id', 'desc');
         $grid->id('Id');
         $grid->screen_name('微博用户名')->modal('用户信息', function ($model) {
             $user = WeiboUser::where('weibo_id',$model->weibo_id)->select('screen_name','description','follow_count',

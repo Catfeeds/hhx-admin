@@ -30,31 +30,36 @@ class WeiboHandler
 //        [uid :1822796164,q:吴青峰]
 //        [uid :1779763091,q:Yyy_07]
 //        [uid :1751035982,q:田馥甄]
-        $uid = '1751035982';
-        $q = '田馥甄';
-        $luicode = '10000011';
-        $all = '100103type= 1&q='.$q;
-        $lfid = urlencode($all);
-        $type = 'uid';
-        $value = $uid;
-        # 用户信息
-        $containerid1 = '100505' . $uid;
-        # 微博信息
-        $containerid2 = '107603' . $uid;
-        $url1 = 'https://m.weibo.cn/api/container/getIndex?uid='.$uid.'&luicode='.$luicode.'&lfid'.$lfid.'&type='.$type.'&value='.$value.'&containerid='.$containerid1;
-        $data1 = self::getHtml($url1)['data']['userInfo'];
-        $weiboUser = new WeiboUser();
-        $us =$weiboUser ->saveData($data1);
-        $count = ceil($data1['statuses_count']/10);
-        for($i=1;$i<=$count;$i++){
-            print($i);
-            $url2 = 'https://m.weibo.cn/api/container/getIndex?uid='.$uid.'&luicode='.$luicode.'&lfid'.$lfid.'&type='.$type.'&value='.$value.'&containerid='.$containerid2.'&page='.$i;
-            $data_all= self::getHtml($url2)['data']['cards'];
-            if($data_all ){
-                $weibo = new Weibo();
-                $weibo->saveData($data_all,$us);
+//        $uid = '1751035982';
+//        $q = '田馥甄';
+        $weibo_users = WeiboUser::select('screen_name','weibo_id')->get();
+        foreach ($weibo_users as $weibo_user){
+            $uid=$weibo_user->weibo_id;
+            $luicode = '10000011';
+            $all = '100103type= 1&q='.$weibo_user->screen_name;
+            $lfid = urlencode($all);
+            $type = 'uid';
+            $value = $uid;
+            # 用户信息
+            $containerid1 = '100505' . $uid;
+            # 微博信息
+            $containerid2 = '107603' . $uid;
+            $url1 = 'https://m.weibo.cn/api/container/getIndex?uid='.$uid.'&luicode='.$luicode.'&lfid'.$lfid.'&type='.$type.'&value='.$value.'&containerid='.$containerid1;
+            $data1 = self::getHtml($url1)['data']['userInfo'];
+            $weiboUser = new WeiboUser();
+            $us =$weiboUser ->saveData($data1);
+            $count = ceil($data1['statuses_count']/10);
+            for($i=1;$i<=$count;$i++){
+                print($i);
+                $url2 = 'https://m.weibo.cn/api/container/getIndex?uid='.$uid.'&luicode='.$luicode.'&lfid'.$lfid.'&type='.$type.'&value='.$value.'&containerid='.$containerid2.'&page='.$i;
+                $data_all= self::getHtml($url2)['data']['cards'];
+                if($data_all){
+                    $weibo = new Weibo();
+                    $weibo->saveData($data_all,$us);
+                }
             }
         }
+
         dd('结束');
 
     }

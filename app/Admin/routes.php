@@ -23,7 +23,17 @@ Route::group([
     $router->resource('mycf', 'MycfController');
     $router->resource('wqf', 'WqfController');
     $router->resource('net_ease', 'NetEaseController');
-    $router->post('net_ease/import', 'NetEaseController@import');
     $router->resource('csv', 'CsvController');
+    $router->resource('weibo_user', 'WeiboUserController');
+    $router->post('net_ease/import', 'NetEaseController@import');
+    $router->resource('net_ease_hebe', 'NetEaseHebeController');
+    $router->resource('net_ease_wqf', 'NetEaseWqfController');
+    $router->resource('net_ease_yoga', 'NetEaseYogaController');
+    $router->resource('net_ease_jj', 'NetEaseJJController');
+    $router->resource('net_ease_eason', 'NetEaseEasonController');
+    $router->resource('net_ease_yeung', 'NetEaseYeungController');
+    $router->resource('net_ease_she', 'NetEaseSheController');
+    $router->resource('travil', 'TravilController');
+
 
 });
