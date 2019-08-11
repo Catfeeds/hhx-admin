@@ -24,5 +24,6 @@ Route::group([
     $router->resource('wqf', 'WqfController');
     $router->resource('net_ease', 'NetEaseController');
     $router->post('net_ease/import', 'NetEaseController@import');
+    $router->resource('csv', 'CsvController');
 
 });
