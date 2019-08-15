@@ -15,10 +15,25 @@ Route::group([
     $router->resource('ctrip', 'CtripController');
     $router->post('ctrip/sync_data', 'CtripController@syncData');
     $router->post('damai/sync_data', 'DamaiController@syncData');
+    $router->post('weibo/sync_data', 'WeiboController@syncData');
     $router->resource('weibos', 'WeiboController');
     $router->resource('hhx', 'HhxController');
     $router->resource('hebe', 'HebeController');
     $router->resource('yyy', 'YyyController');
     $router->resource('mycf', 'MycfController');
+    $router->resource('wqf', 'WqfController');
+    $router->resource('net_ease', 'NetEaseController');
+    $router->resource('csv', 'CsvController');
+    $router->resource('weibo_user', 'WeiboUserController');
+    $router->post('net_ease/import', 'NetEaseController@import');
+    $router->resource('net_ease_hebe', 'NetEaseHebeController');
+    $router->resource('net_ease_wqf', 'NetEaseWqfController');
+    $router->resource('net_ease_yoga', 'NetEaseYogaController');
+    $router->resource('net_ease_jj', 'NetEaseJJController');
+    $router->resource('net_ease_eason', 'NetEaseEasonController');
+    $router->resource('net_ease_yeung', 'NetEaseYeungController');
+    $router->resource('net_ease_she', 'NetEaseSheController');
+    $router->resource('travil', 'TravilController');
+
 
 });

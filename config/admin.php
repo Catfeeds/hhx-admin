@@ -151,7 +151,7 @@ return [
     'upload' => [
 
         // Disk in `config/filesystem.php`.
-        'disk' => 'admin',
+        'disk' => 'cosv5',
 
         // Image and file upload path under the disk above.
         'directory' => [
@@ -243,7 +243,7 @@ return [
     | Supported: "tencent", "google", "yandex".
     |
     */
-    'map_provider' => 'google',
+//    'map_provider' => 'google',
 
     /*
     |--------------------------------------------------------------------------
@@ -273,7 +273,7 @@ return [
     | "sidebar-mini".
     |
     */
-    'layout' => ['sidebar-mini', 'sidebar-collapse'],
+    'layout' => ['sidebar-mini', 'fixed'],
 
     /*
     |--------------------------------------------------------------------------
@@ -354,7 +354,7 @@ return [
         'ueditor' => [
 
             // 如果要关掉这个扩展，设置为false
-            'enable' => true,
+            'enable' => false,
 
             // 编辑器的前端配置 参考：http://fex.baidu.com/ueditor/#start-config
             'config' => [
@@ -375,6 +375,11 @@ return [
             'config' => [
 
             ]
-        ]
+        ],
+        'media-manager' => [
+
+            // Select a local disk that you configured in `config/filesystem.php`
+            'disk' => 'admin'
+        ],
     ],
 ];

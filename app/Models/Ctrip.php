@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Ctrip extends Model
 {
@@ -17,6 +18,7 @@ class Ctrip extends Model
         if(!$ctrip){
             $this->create($data);
         }else{
+            Log::info($data);
             $ctrip->updated_at = now();
             $ctrip->update($data);
         }

@@ -18,11 +18,15 @@
         "laravel-admin-ext/config": "^1.0",
         "laravel-admin-ext/daterangepicker": "^1.0",
         "laravel-admin-ext/log-viewer": "^1.0",
+        "laravel-admin-ext/media-manager": "^1.0",
+        "laravel-admin-ext/media-player": "^1.0",
         "laravel-admin-ext/redis-manager": "^1.0",
         "laravel-admin-ext/scheduling": "^1.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "predis/predis": "^1.1"
+        "league/csv": "^9.2",
+        "predis/predis": "^1.1",
+        "simplesoftwareio/simple-qrcode": "~2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

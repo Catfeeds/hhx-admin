@@ -2,8 +2,11 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Extensions\WeiboExporter;
 use App\Models\Weibo;
 use App\Http\Controllers\Controller;
+use App\Models\WeiboPics;
+use App\Models\WeiboUser;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -21,7 +24,8 @@ class YyyController extends Controller
      * @param Content $content
      * @return Content
      */
-    protected $fileName = 'Yyy_07';
+    protected $fileName = 'yyy_07';
+    protected $wei_id = '1779763091';
     public function index(Content $content)
     {
         return $content
@@ -82,19 +86,46 @@ class YyyController extends Controller
     protected function grid()
     {
         $grid = new Grid(new Weibo);
-        $grid->model()->where('is_flag', '=', 0)->where('screen_name','Yyy_07');
+        $grid->model()->where('is_flag', '=', 0)->where('weibo_id',$this->wei_id)->orderBy('weibo_info_id', 'desc');
         $grid->id('Id');
-        $grid->screen_name('微博用户名');
+        $grid->screen_name('微博用户名')->modal('用户信息', function ($model) {
+            $user = WeiboUser::where('weibo_id',$model->weibo_id)->select('screen_name','description','follow_count',
+                'followers_count', 'gender','statuses_count' ,'avatar_hd' )->first()->toArray();
+            if($user['gender'] == 'm'){
+                $user['gender'] ='boy';
+            }else{
+                $user['gender'] ='girl';
+            }
+            $user['avatar_hd'] = '<img src=" '.env('APP_URL')."/uploads/".$user["avatar_hd"].'">';
+            return new Table(['key', 'value'], $user);
+        });
         $grid->column('text')->display(function () {
             return $this->text;
         });
         $grid->thumbnail_pic('缩略图')->image();
+
+        $grid->pic_num('pic_num')->modal('多图', function ($model) {
+            if($model->pic_num >1){
+                unset($data_u);
+                $num = 0;
+                $pics = WeiboPics::where('weibo_info_id',$model->weibo_info_id)->select('url')->get();
+                foreach ($pics as $pic){
+                    $num ++;
+                    $data_u[$num] = '<img src=" '.env('APP_URL')."/uploads/".$pic->url.'">';
+                }
+            }elseif($model->pic_num ==1){
+                $data_u['1'] = '<img src=" '.env('APP_URL')."/uploads/".$model->thumbnail_pic .'">';
+            }
+            else{
+                $data_u['pic'] = '一张图片都没有';
+            }
+            return new Table(['key', 'value'], $data_u);
+        });
         $grid->source('来源');
         $grid->weibo_created_at('Weibo发布时间');
         $grid->comments_count('评论个数');
         $grid->attitudes_count('点赞个数');
         $grid->reposts_count('转发个数');
-//        $grid->scheme('微博链接');
         $grid->column('repost_id')->expand(function ($model) {
             if($model->repost_id){
                 $weibo = Weibo::where('id',$model->repost_id)->first()->toArray();
@@ -113,6 +144,7 @@ class YyyController extends Controller
         });
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
+        $grid->exporter(new WeiboExporter());
 
         return $grid;
     }

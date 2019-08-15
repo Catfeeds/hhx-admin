@@ -17,7 +17,6 @@ class SyncCtrip extends AbstractTool
     {
         return <<<EOT
         $("#syn-ctrip-data").click(function (e) {
-        console.log('2');
             $.ajax({
                     method: 'post',
                     url: 'ctrip/sync_data',

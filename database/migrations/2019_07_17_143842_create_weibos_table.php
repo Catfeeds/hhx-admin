@@ -16,10 +16,10 @@ class CreateWeibosTable extends Migration
         Schema::create('weibos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('screen_name',32)->default('')->comment('微博用户名');
-            $table->text('text')->default('')->comment('微博内容');
+            $table->text('text')->comment('微博内容');
             $table->string('thumbnail_pic',255)->nullable()->default('')->comment('微博图片缩略');
             $table->string('original_pic',255)->nullable()->default('')->comment('微博图片');
-            $table->string('source',16)->nullable()->default('')->comment('来源');
+            $table->string('source',64)->nullable()->default('')->comment('来源');
             $table->string('weibo_created_at',16)->nullable()->default('')->comment('发表日期');
             $table->string('comments_count',16)->default(0)->comment('评论数');
             $table->string('attitudes_count',16)->default(0)->comment('赞数');
