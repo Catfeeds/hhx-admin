@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class BasicController extends Controller
 {
@@ -169,6 +170,8 @@ class BasicController extends Controller
         dd($res->getBody());
 
     }
+
+
 
 
 

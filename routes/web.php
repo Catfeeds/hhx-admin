@@ -19,6 +19,7 @@ Route::get('/', function () {
 //    Route::post('/', '\Controller@')->name('');
 //});
 
-Route::get('/text', 'TextController@text')->name('text');
-Route::get('/basic', 'Basic\BasicController@getPic');
+Route::any('/texts', 'textController@index');
+Route::get('/basic', 'Basic\BasicController@getd');
 Route::post('/uploadFiles', 'UploadsController@uploadImg');
+
