@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Interest;
+use App\Models\DirectionLog;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class InterestController extends Controller
+class DirectionLogController extends Controller
 {
     use HasResourceActions;
 
@@ -20,7 +20,7 @@ class InterestController extends Controller
      * @param Content $content
      * @return Content
      */
-    protected $fileName = '兴趣';
+    protected $fileName = '方向Log';
     public function index(Content $content)
     {
         return $content
@@ -80,16 +80,18 @@ class InterestController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new Interest);
+        $grid = new Grid(new DirectionLog);
 
         $grid->id('Id');
-        $grid->name('名字');
-        $grid->intro('简述');
-        $grid->Img('图片');
-        $grid->status('状态')->using(['0'=>'打开','1'=>'关闭']);
-        $grid->order_num('排序');
-        $grid->created_at('创建时间');
-        $grid->updated_at('更新时间');
+        $grid->direction_id('Direction id');
+        $grid->daily_id('Daily id');
+        $grid->status('状态')->using([0=>'减少',1=>'增加']);
+        $grid->ok('Ok');
+        $grid->illustration('Illustration');
+        $grid->money('Money');
+        $grid->week_day('Week day');
+        $grid->created_at('Created at');
+        $grid->updated_at('Updated at');
 
         return $grid;
     }
@@ -102,16 +104,18 @@ class InterestController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(Interest::findOrFail($id));
+        $show = new Show(DirectionLog::findOrFail($id));
 
         $show->id('Id');
-        $show->name('名字');
-        $show->intro('简述');
-        $show->Img('图片');
-        $show->status('状态')->using(['0'=>'打开','1'=>'关闭']);
-        $show->order_num('排序');
-        $show->created_at('创建时间');
-        $show->updated_at('更新时间');
+        $show->direction_id('Direction id');
+        $show->daily_id('Daily id');
+        $show->status('Status');
+        $show->ok('Ok');
+        $show->illustration('Illustration');
+        $show->money('Money');
+        $show->week_day('Week day');
+        $show->created_at('Created at');
+        $show->updated_at('Updated at');
 
         return $show;
     }
@@ -123,13 +127,15 @@ class InterestController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new Interest);
+        $form = new Form(new DirectionLog);
 
-        $form->text('name', '名字');
-        $form->text('intro', '简述');
-        $form->image('Img', '图片');
-        $form->select('status', '状态')->options(['0'=>'打开','1'=>'关闭']);
-        $form->number('order_num', '排序');
+        $form->number('direction_id', 'Direction id');
+        $form->number('daily_id', 'Daily id');
+        $form->number('status', 'Status');
+        $form->number('ok', 'Ok');
+        $form->text('illustration', 'Illustration');
+        $form->decimal('money', 'Money')->default(0.00);
+        $form->number('week_day', 'Week day');
 
         return $form;
     }

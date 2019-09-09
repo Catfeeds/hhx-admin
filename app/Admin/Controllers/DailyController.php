@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Interest;
+use App\Models\Daily;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class InterestController extends Controller
+class DailyController extends Controller
 {
     use HasResourceActions;
 
@@ -20,7 +20,7 @@ class InterestController extends Controller
      * @param Content $content
      * @return Content
      */
-    protected $fileName = '兴趣';
+    protected $fileName = '日常';
     public function index(Content $content)
     {
         return $content
@@ -80,14 +80,15 @@ class InterestController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new Interest);
+        $grid = new Grid(new Daily);
 
         $grid->id('Id');
-        $grid->name('名字');
-        $grid->intro('简述');
-        $grid->Img('图片');
-        $grid->status('状态')->using(['0'=>'打开','1'=>'关闭']);
-        $grid->order_num('排序');
+        $grid->Img('每日图片')->image();
+        $grid->score('每日打分');
+        $grid->collocation('每日搭配');
+        $grid->grow_up('每日成长')->limit(30);
+        $grid->summary('每日总结')->limit(30);
+        $grid->money('每日消费');
         $grid->created_at('创建时间');
         $grid->updated_at('更新时间');
 
@@ -102,14 +103,15 @@ class InterestController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(Interest::findOrFail($id));
+        $show = new Show(Daily::findOrFail($id));
 
         $show->id('Id');
-        $show->name('名字');
-        $show->intro('简述');
-        $show->Img('图片');
-        $show->status('状态')->using(['0'=>'打开','1'=>'关闭']);
-        $show->order_num('排序');
+        $show->Img('每日图片')->image();
+        $show->score('分数');
+        $show->collocation('每日搭配')->image();
+        $show->grow_up('每日成长');
+        $show->summary('每日总结');
+        $show->money('每日消费');
         $show->created_at('创建时间');
         $show->updated_at('更新时间');
 
@@ -123,14 +125,14 @@ class InterestController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new Interest);
+        $form = new Form(new Daily);
 
-        $form->text('name', '名字');
-        $form->text('intro', '简述');
-        $form->image('Img', '图片');
-        $form->select('status', '状态')->options(['0'=>'打开','1'=>'关闭']);
-        $form->number('order_num', '排序');
-
+        $form->image('Img', '每日图片');
+        $form->number('score', '每日打分')->default(0);
+        $form->image('collocation', '每日穿搭');
+        $form->text('grow_up', '每日成长');
+        $form->text('summary', '每日总结');
+        $form->decimal('money', '每日消费')->default(0.00);
         return $form;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Interest;
+use App\Models\InterestLog;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class InterestController extends Controller
+class InterestLogController extends Controller
 {
     use HasResourceActions;
 
@@ -20,7 +20,7 @@ class InterestController extends Controller
      * @param Content $content
      * @return Content
      */
-    protected $fileName = '兴趣';
+    protected $fileName = '兴趣Log';
     public function index(Content $content)
     {
         return $content
@@ -80,14 +80,13 @@ class InterestController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new Interest);
+        $grid = new Grid(new InterestLog);
 
         $grid->id('Id');
-        $grid->name('名字');
-        $grid->intro('简述');
-        $grid->Img('图片');
-        $grid->status('状态')->using(['0'=>'打开','1'=>'关闭']);
-        $grid->order_num('排序');
+        $grid->interest_id('Interest id');
+        $grid->daily_id('Daily id');
+        $grid->illustration('说明');
+        $grid->week_day('星期几');
         $grid->created_at('创建时间');
         $grid->updated_at('更新时间');
 
@@ -102,14 +101,13 @@ class InterestController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(Interest::findOrFail($id));
+        $show = new Show(InterestLog::findOrFail($id));
 
         $show->id('Id');
-        $show->name('名字');
-        $show->intro('简述');
-        $show->Img('图片');
-        $show->status('状态')->using(['0'=>'打开','1'=>'关闭']);
-        $show->order_num('排序');
+        $show->interest_id('Interest id');
+        $show->daily_id('Daily id');
+        $show->illustration('说明');
+        $show->week_day('星期几');
         $show->created_at('创建时间');
         $show->updated_at('更新时间');
 
@@ -123,13 +121,12 @@ class InterestController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new Interest);
+        $form = new Form(new InterestLog);
 
-        $form->text('name', '名字');
-        $form->text('intro', '简述');
-        $form->image('Img', '图片');
-        $form->select('status', '状态')->options(['0'=>'打开','1'=>'关闭']);
-        $form->number('order_num', '排序');
+        $form->number('interest_id', 'Interest id');
+        $form->number('daily_id', 'Daily id');
+        $form->text('illustration', '说明');
+        $form->number('week_day', '星期几');
 
         return $form;
     }
