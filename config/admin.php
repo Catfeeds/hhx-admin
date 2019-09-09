@@ -151,7 +151,7 @@ return [
     'upload' => [
 
         // Disk in `config/filesystem.php`.
-        'disk' => 'cosv5',
+        'disk' => 'admin',
 
         // Image and file upload path under the disk above.
         'directory' => [
