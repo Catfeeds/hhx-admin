@@ -15,7 +15,7 @@ use League\Csv\Reader;
 use League\Flysystem\Exception;
 use Encore\Admin\Widgets\Table;
 
-class NetEaseYogaController extends Controller
+class NetEaseJJController extends Controller
 {
     use HasResourceActions;
 
