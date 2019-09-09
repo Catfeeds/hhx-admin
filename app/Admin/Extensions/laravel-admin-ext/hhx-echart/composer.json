@@ -1,0 +1,33 @@
+{
+    "name": "laravel-admin-ext/hhx-echart",
+    "description": "Hhx的echart",
+    "type": "library",
+    "keywords": ["laravel-admin", "extension"],
+    "homepage": "https://github.com/laravel-admin-ext/hhx-echart",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "hhx06",
+            "email": "1007502956@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "encore/laravel-admin": "~1.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Encore\\HhxEchart\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Encore\\HhxEchart\\HhxEchartServiceProvider"
+            ]
+        }
+    }
+}
