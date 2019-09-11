@@ -7,4 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Interest extends Model
 {
     //
+    static function getData(){
+        return Interest::whereStatus(0)->pluck('id','name');
+    }
 }

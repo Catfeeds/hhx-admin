@@ -13,7 +13,7 @@ class Weibo extends Model
     protected $guarded=[];
     public function saveData($data,$us){
         foreach ($data as $value){
-            if(!$value||($us['status'] ==1 && $value['mblog']['id']<=$us['flag'])||($us['status'] ==0 && $value['mblog']['id']>=$us['flag']&&$us['flag']>0)){
+            if(!$value || ($us['status'] ==1 && $value['mblog']['id'] <= $us['flag'])){
                 break;
             }
             if(isset($value['mblog']['retweeted_status'])){

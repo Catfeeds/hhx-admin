@@ -2,6 +2,8 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Daily;
+use App\Models\Interest;
 use App\Models\InterestLog;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -123,11 +125,12 @@ class InterestLogController extends Controller
     {
         $form = new Form(new InterestLog);
 
-        $form->number('interest_id', 'Interest id');
-        $form->number('daily_id', 'Daily id');
+        $form->select('interest_id', 'Interest id')->options(Interest::getData());
         $form->text('illustration', '说明');
-        $form->number('week_day', '星期几');
-
+        $form->select('week_day', '星期几')->options([0=>'星期日',1=>'星期一',2=>'星期二',3=>'星期三',4=>'星期四',5=>'星期五',6=>'星期六']);
+        $data = Daily::getTimeDay();
+        $data[0] = 0;
+        $form->select('daily_id')->options($data)->default(0);
         return $form;
     }
 }

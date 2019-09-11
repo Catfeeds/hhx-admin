@@ -12,4 +12,6 @@ class InterestLog extends Model
     {
         return $this->belongsTo(Daily::class, 'daily_id');
     }
+
+
 }

@@ -132,7 +132,6 @@ class DailyController extends Controller
         $form->image('collocation', '每日穿搭');
         $form->text('grow_up', '每日成长');
         $form->text('summary', '每日总结');
-        $form->decimal('money', '每日消费')->default(0.00);
         return $form;
     }
 }

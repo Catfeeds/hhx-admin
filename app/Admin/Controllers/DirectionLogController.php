@@ -2,6 +2,8 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Daily;
+use App\Models\Direction;
 use App\Models\DirectionLog;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -86,12 +88,12 @@ class DirectionLogController extends Controller
         $grid->direction_id('Direction id');
         $grid->daily_id('Daily id');
         $grid->status('状态')->using([0=>'减少',1=>'增加']);
-        $grid->ok('Ok');
-        $grid->illustration('Illustration');
-        $grid->money('Money');
-        $grid->week_day('Week day');
-        $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
+        $grid->ok('Ok')->using([0=>'good',1=>'bad']);
+        $grid->illustration('说明');
+        $grid->money('金额');
+        $grid->week_day('星期几');
+        $grid->created_at('创建时间');
+        $grid->updated_at('更新时间');
 
         return $grid;
     }
@@ -109,13 +111,13 @@ class DirectionLogController extends Controller
         $show->id('Id');
         $show->direction_id('Direction id');
         $show->daily_id('Daily id');
-        $show->status('Status');
-        $show->ok('Ok');
-        $show->illustration('Illustration');
-        $show->money('Money');
-        $show->week_day('Week day');
-        $show->created_at('Created at');
-        $show->updated_at('Updated at');
+        $show->status('状态')->using([0=>'减少',1=>'增加']);
+        $show->ok('Ok')->using([0=>'good',1=>'bad']);
+        $show->illustration('说明');
+        $show->money('金额');
+        $show->week_day('星期几');
+        $show->created_at('创建时间');
+        $show->updated_at('更新时间');
 
         return $show;
     }
@@ -129,14 +131,15 @@ class DirectionLogController extends Controller
     {
         $form = new Form(new DirectionLog);
 
-        $form->number('direction_id', 'Direction id');
-        $form->number('daily_id', 'Daily id');
-        $form->number('status', 'Status');
-        $form->number('ok', 'Ok');
-        $form->text('illustration', 'Illustration');
-        $form->decimal('money', 'Money')->default(0.00);
-        $form->number('week_day', 'Week day');
-
+        $form->select('direction_id', 'Direction id')->options(Direction::getData());
+        $form->select('status', 'Status')->options([0=>'减少',1=>'增加']);
+        $form->select('ok', 'Ok')->options([0=>'good',1=>'bad']);
+        $form->text('illustration', '说明');
+        $form->decimal('money', '金额')->default(0.00);
+        $form->select('week_day', '星期几')->options([0=>'星期日',1=>'星期一',2=>'星期二',3=>'星期三',4=>'星期四',5=>'星期五',6=>'星期六']);
+        $data = Daily::getTimeDay();
+        $data[0] = 0;
+        $form->select('daily_id')->options($data)->default(0);
         return $form;
     }
 }
