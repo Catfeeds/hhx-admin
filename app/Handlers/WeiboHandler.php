@@ -49,7 +49,7 @@ class WeiboHandler
             $weiboUser = new WeiboUser();
             $us =$weiboUser ->saveData($data1);
             $count = ceil($data1['statuses_count']/10);
-            for($i=1;$i<= $count;$i++){
+            for($i=1;$i<= 10;$i++){
                 print($i);
                 $url2 = 'https://m.weibo.cn/api/container/getIndex?uid='.$uid.'&luicode='.$luicode.'&lfid'.$lfid.'&type='.$type.'&value='.$value.'&containerid='.$containerid2.'&page='.$i;
                 $data_all= self::getHtml($url2)['data']['cards'];
@@ -61,7 +61,7 @@ class WeiboHandler
             if($us['status'] == 0){
                 WeiboUser::where('weibo_id',$us['weibo_id'])->update(['status'=>1]);
             }
-            dd('123');
+
         }
 
 
