@@ -85,7 +85,7 @@ class InterestController extends Controller
         $grid->id('Id');
         $grid->name('名字');
         $grid->intro('简述');
-        $grid->Img('图片');
+        $grid->Img('图片')->image();
         $grid->status('状态')->using(['0'=>'打开','1'=>'关闭']);
         $grid->order_num('排序');
         $grid->created_at('创建时间');
@@ -107,7 +107,7 @@ class InterestController extends Controller
         $show->id('Id');
         $show->name('名字');
         $show->intro('简述');
-        $show->Img('图片');
+        $show->Img('图片')->image();
         $show->status('状态')->using(['0'=>'打开','1'=>'关闭']);
         $show->order_num('排序');
         $show->created_at('创建时间');

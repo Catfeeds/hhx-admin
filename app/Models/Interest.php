@@ -8,6 +8,6 @@ class Interest extends Model
 {
     //
     static function getData(){
-        return Interest::whereStatus(0)->pluck('id','name');
+        return Interest::whereStatus(0)->orderBy('order_num')->pluck('name','id');
     }
 }

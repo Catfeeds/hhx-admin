@@ -20,11 +20,12 @@ class DirectionController extends Controller
      * @param Content $content
      * @return Content
      */
+    protected $fileName = '方向';
     public function index(Content $content)
     {
         return $content
-            ->header('Index')
-            ->description('description')
+            ->header($this->fileName)
+            ->description('列表')
             ->body($this->grid());
     }
 
@@ -38,8 +39,8 @@ class DirectionController extends Controller
     public function show($id, Content $content)
     {
         return $content
-            ->header('Detail')
-            ->description('description')
+            ->header($this->fileName)
+            ->description('详情')
             ->body($this->detail($id));
     }
 
@@ -53,8 +54,8 @@ class DirectionController extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('Edit')
-            ->description('description')
+            ->header($this->fileName)
+            ->description('编辑')
             ->body($this->form()->edit($id));
     }
 
@@ -67,8 +68,8 @@ class DirectionController extends Controller
     public function create(Content $content)
     {
         return $content
-            ->header('Create')
-            ->description('description')
+            ->header($this->fileName)
+            ->description('创建')
             ->body($this->form());
     }
 
@@ -85,7 +86,7 @@ class DirectionController extends Controller
         $grid->name('Name');
         $grid->intro('Intro');
         $grid->Img('Img');
-        $grid->status('Status');
+        $grid->status('Status')->using([0=>'打开',1=>'关闭']);
         $grid->order_num('Order num');
         $grid->all_num('All num');
         $grid->created_at('Created at');
@@ -108,7 +109,7 @@ class DirectionController extends Controller
         $show->name('Name');
         $show->intro('Intro');
         $show->Img('Img');
-        $show->status('Status');
+        $show->status('Status')->using([0=>'打开',1=>'关闭']);
         $show->order_num('Order num');
         $show->all_num('All num');
         $show->created_at('Created at');
@@ -129,9 +130,9 @@ class DirectionController extends Controller
         $form->text('name', 'Name');
         $form->text('intro', 'Intro');
         $form->image('Img', 'Img');
-        $form->number('status', 'Status');
-        $form->number('order_num', 'Order num');
-        $form->decimal('all_num', 'All num')->default(0.00);
+        $form->select('status', 'Status')->options([0=>'打开',1=>'关闭']);
+        $form->number('order_num', 'Order num')->default(0);
+//        $form->decimal('all_num', 'All num')->default(0.00);
 
         return $form;
     }

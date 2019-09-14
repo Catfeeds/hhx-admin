@@ -93,7 +93,7 @@ class DirectionLogController extends Controller
         $grid->money('金额');
         $grid->week_day('星期几');
         $grid->created_at('创建时间');
-        $grid->updated_at('更新时间');
+//        $grid->updated_at('更新时间');
 
         return $grid;
     }
