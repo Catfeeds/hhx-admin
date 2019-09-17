@@ -83,15 +83,15 @@ class FlightController extends Controller
         $grid = new Grid(new Flight);
 
         $grid->id('Id');
-        $grid->depCode('出发机场代码');
+
         $grid->depName('出发城市');
+        $grid->depCode('出发机场代码');
         $grid->arrName('到达城市');
         $grid->arrCode('到达机场代码');
         $grid->price('价格');
         $grid->priceDesc('价格单元');
         $grid->discount('折扣');
         $grid->depDate('到达日期');
-        $grid->priceDesc('价格单元');
         $grid->created_at('创建时间');
         $grid->disableActions();
 
