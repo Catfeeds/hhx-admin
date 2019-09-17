@@ -34,6 +34,12 @@ Route::group([
     $router->resource('net_ease_yeung', 'NetEaseYeungController');
     $router->resource('net_ease_she', 'NetEaseSheController');
     $router->resource('travil', 'TravilController');
+    $router->resource('daily', 'DailyController');
+    $router->resource('interest', 'InterestController');
+    $router->resource('interest_log', 'InterestLogController');
+    $router->resource('direction', 'directionController');
+    $router->resource('direction_log', 'directionLogController');
+    $router->resource('flight', 'FlightController');
 
 
 });

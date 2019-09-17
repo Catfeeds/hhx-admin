@@ -89,12 +89,13 @@ class DamaiController extends Controller
         $grid->price_str('价格区间');
         $grid->showtime('演绎时间');
         $grid->venue('场馆');
-        $grid->showstatus('状态');
+        $grid->showstatus('状态')->editable();
         $grid->created_at('创建时间');
         $grid->updated_at('更新时间');
         $grid->actions(function ($actions) {
             $actions->disableEdit();
         });
+        $grid->model()->OrderBy('id','desc');
         $grid->tools(function ($tools) {
             $tools->append(new SyncDamai());
 //            $importButton = <<<EOF
