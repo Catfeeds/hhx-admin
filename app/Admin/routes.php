@@ -39,6 +39,7 @@ Route::group([
     $router->resource('interest_log', 'InterestLogController');
     $router->resource('direction', 'directionController');
     $router->resource('direction_log', 'directionLogController');
+    $router->resource('flight', 'FlightController');
 
 
 });
