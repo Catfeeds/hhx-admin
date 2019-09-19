@@ -38,6 +38,6 @@ EOT;
     {
         Admin::script($this->script());
 
-        return view('admin.tools.syncDamai');
+        return view('Admin.tools.syncDamai');
     }
 }
