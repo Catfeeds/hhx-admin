@@ -137,7 +137,6 @@ class WeiboController extends Controller
                     'comments_count' =>$weibo['comments_count'],
                     'attitudes_count' =>$weibo['attitudes_count'],
                     'reposts_count' =>$weibo['reposts_count'],
-
                 ];
                 return new Table(['key','value'], $wb);
             }
