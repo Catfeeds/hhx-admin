@@ -38,6 +38,6 @@ EOT;
     {
         Admin::script($this->script());
 
-        return view('admin.tools.syncCtrip');
+        return view('Admin.tools.syncCtrip');
     }
 }

@@ -40,6 +40,6 @@ EOT;
     {
         Admin::script($this->script());
 
-        return view('admin.tools.syncWeibo');
+        return view('Admin.tools.syncWeibo');
     }
 }
