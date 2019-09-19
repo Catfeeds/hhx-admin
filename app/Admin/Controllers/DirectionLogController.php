@@ -83,14 +83,13 @@ class DirectionLogController extends Controller
     protected function grid()
     {
         $grid = new Grid(new DirectionLog);
-
         $grid->id('Id');
         $grid->direction_id('Direction id');
         $grid->daily_id('Daily id');
         $grid->status('状态')->using([0=>'减少',1=>'增加']);
         $grid->ok('Ok')->using([0=>'good',1=>'bad']);
         $grid->illustration('说明');
-        $grid->money('金额');
+        $grid->money('金额')->totalRow();
         $grid->week_day('星期几');
         $grid->created_at('创建时间');
 //        $grid->updated_at('更新时间');
