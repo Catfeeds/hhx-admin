@@ -4,6 +4,8 @@ namespace App\Admin\Controllers;
 
 use App\Models\Daily;
 use App\Http\Controllers\Controller;
+use App\Models\DirectionLog;
+use Carbon\Carbon;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -81,7 +83,13 @@ class DailyController extends Controller
     protected function grid()
     {
         $grid = new Grid(new Daily);
-
+        $grid->header(function () {
+            $week_again = date("Y-m-d",strtotime("this week"));
+            $mouth_again = date("Y-m-d",strtotime("this mouth"));
+            $week = DirectionLog::whereBetween('created_at',[$week_again,Carbon::now()])->sum('money');
+            $mouth = DirectionLog::whereBetween('created_at',[$mouth_again,Carbon::now()])->sum('money');
+            return '本周合计:'.$week.',本月合计:'.$mouth;
+        });
         $grid->id('Id');
         $grid->Img('每日图片')->image();
         $grid->score('每日打分');
