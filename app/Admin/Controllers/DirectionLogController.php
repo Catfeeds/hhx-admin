@@ -106,7 +106,6 @@ class DirectionLogController extends Controller
     protected function detail($id)
     {
         $show = new Show(DirectionLog::findOrFail($id));
-
         $show->id('Id');
         $show->direction_id('Direction id');
         $show->daily_id('Daily id');
@@ -129,7 +128,6 @@ class DirectionLogController extends Controller
     protected function form()
     {
         $form = new Form(new DirectionLog);
-
         $form->select('direction_id', 'Direction id')->options(Direction::getData());
         $form->select('status', 'Status')->options([0=>'减少',1=>'增加']);
         $form->select('ok', 'Ok')->options([0=>'good',1=>'bad']);
