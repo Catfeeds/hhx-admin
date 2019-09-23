@@ -11,9 +11,15 @@ class DirectionLog extends Model
     {
         parent::boot();
         static::saved(function ($model) {
-            if($model->daily_id != 0){
-                DB::table('dailies')->whereDailyId($model->daily_id)->increment('money', $model->daily_id);
+            if($model->daily_id != 0 && $model->status == 0){
+                DB::table('dailies')->whereId($model->daily_id)->increment('money', $model->money);
             }
+            if($model->status == 0){
+                Direction::whereId($model->direction_id)->increment('all_num', $model->money);
+            }else{
+                Direction::whereId($model->direction_id)->decrement('all_num', $model->money);
+            }
+
         });
     }
 }

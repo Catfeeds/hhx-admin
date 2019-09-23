@@ -93,13 +93,13 @@ class DailyController extends Controller
         $grid->id('Id');
         $grid->Img('每日图片')->image();
         $grid->score('每日打分');
-        $grid->collocation('每日搭配');
+        $grid->collocation('每日搭配')->image();
         $grid->grow_up('每日成长')->limit(30);
         $grid->summary('每日总结')->limit(30);
         $grid->money('每日消费');
         $grid->created_at('创建时间');
-        $grid->updated_at('更新时间');
-
+//        $grid->updated_at('更新时间');
+        $grid->model()->orderBy('id', 'desc');
         return $grid;
     }
 
@@ -118,7 +118,7 @@ class DailyController extends Controller
         $show->score('分数');
         $show->collocation('每日搭配')->image();
         $show->grow_up('每日成长');
-        $show->summary('每日总结');
+        $show->summary('每日总结')->image();
         $show->money('每日消费');
         $show->created_at('创建时间');
         $show->updated_at('更新时间');

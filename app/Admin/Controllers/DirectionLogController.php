@@ -90,9 +90,11 @@ class DirectionLogController extends Controller
         $grid->ok('Ok')->using([0=>'good',1=>'bad']);
         $grid->illustration('说明');
         $grid->money('金额')->totalRow();
-        $grid->week_day('星期几');
+        $grid->week_day('星期几')->using([0=>'星期日',1=>'星期一',2=>'星期二',3=>'星期三',4=>'星期四',5=>'星期五',6=>'星期六']);
         $grid->created_at('创建时间');
 //        $grid->updated_at('更新时间');
+        $grid->model()->orderBy('id', 'desc');
+
 
         return $grid;
     }
@@ -113,7 +115,7 @@ class DirectionLogController extends Controller
         $show->ok('Ok')->using([0=>'good',1=>'bad']);
         $show->illustration('说明');
         $show->money('金额');
-        $show->week_day('星期几');
+        $show->week_day('星期几')->using([0=>'星期日',1=>'星期一',2=>'星期二',3=>'星期三',4=>'星期四',5=>'星期五',6=>'星期六']);
         $show->created_at('创建时间');
         $show->updated_at('更新时间');
 
@@ -136,7 +138,7 @@ class DirectionLogController extends Controller
         $form->select('week_day', '星期几')->options([0=>'星期日',1=>'星期一',2=>'星期二',3=>'星期三',4=>'星期四',5=>'星期五',6=>'星期六']);
         $data = Daily::getTimeDay();
         $data[0] = 0;
-        $form->select('daily_id')->options($data)->default(0);
+        $form->select('daily_id')->options($data)->default(key($data));
         return $form;
     }
 }
