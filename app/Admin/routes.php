@@ -40,7 +40,9 @@ Route::group([
     $router->resource('direction', 'directionController');
     $router->resource('direction_log', 'directionLogController');
     $router->resource('flight', 'FlightController');
+    $router->resource('direction_week', 'DirectionWeekController');
     $router->resource('to_do_list', 'ToDoListController');
+
 
 
 });
