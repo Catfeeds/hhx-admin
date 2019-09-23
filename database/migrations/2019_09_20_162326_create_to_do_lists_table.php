@@ -22,7 +22,7 @@ class CreateToDoListsTable extends Migration
             $table->smallInteger('comment')->default(0)->comment('0未定义1按时完成2延长时间');
             $table->timestamps();
         });
-        \Illuminate\Support\Facades\DB::statement("ALTER TABLE `flights` comment '待办事项'");
+        \Illuminate\Support\Facades\DB::statement("ALTER TABLE `to_do_lists` comment '待办事项'");
     }
 
     /**
