@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Daily extends Model
 {
@@ -29,9 +30,9 @@ class Daily extends Model
                 if(in_array($value->created_at ->toDateString(),$data)){
                     $value ->daily_id = array_search($value->created_at ->toDateString(), $data);
                     $value ->save();
+                    DB::table('dailies')->whereDailyId($value ->daily_id)->increment('money', $value->money);
                 }
             }
-
         });
     }
     /*

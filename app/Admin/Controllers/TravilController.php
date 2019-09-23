@@ -146,7 +146,6 @@ class TravilController extends Controller
         $form->number('ViewNumber', 'ViewNumber');
         $form->url('Url', 'Url');
         $form->textarea('text', 'Text');
-
         return $form;
     }
 }

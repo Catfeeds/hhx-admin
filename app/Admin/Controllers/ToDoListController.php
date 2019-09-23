@@ -2,9 +2,8 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Daily;
+use App\Models\ToDoList;
 use App\Http\Controllers\Controller;
-use App\Models\DirectionLog;
 use Carbon\Carbon;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -12,7 +11,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class DailyController extends Controller
+class ToDoListController extends Controller
 {
     use HasResourceActions;
 
@@ -22,7 +21,7 @@ class DailyController extends Controller
      * @param Content $content
      * @return Content
      */
-    protected $fileName = '日常';
+    protected $fileName ='待办清单';
     public function index(Content $content)
     {
         return $content
@@ -82,24 +81,16 @@ class DailyController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new Daily);
-        $grid->header(function () {
-            $week_again = date("Y-m-d",strtotime("this week"));
-            $mouth_again = date("Y-m-d",strtotime("this mouth"));
-            $week = DirectionLog::whereBetween('created_at',[$week_again,Carbon::now()])->sum('money');
-            $mouth = DirectionLog::whereBetween('created_at',[$mouth_again,Carbon::now()])->sum('money');
-            return '本周合计:'.$week.',本月合计:'.$mouth;
-        });
+        $grid = new Grid(new ToDoList);
+
         $grid->id('Id');
-        $grid->Img('每日图片')->image();
-        $grid->score('每日打分');
-        $grid->collocation('每日搭配');
-        $grid->grow_up('每日成长')->limit(30);
-        $grid->summary('每日总结')->limit(30);
-        $grid->money('每日消费');
+        $grid->title('标题');
+        $grid->desc('形容')->limit(30);
+        $grid->status('状态')->editable(['0'=>'未完成','1'=>'完成']);
+        $grid->good_date('最好完成时间');
+        $grid->comment('评价')->using(['0'=>'未定义','1'=>'按时完成','2'=>'延长时间']);
         $grid->created_at('创建时间');
         $grid->updated_at('更新时间');
-
         return $grid;
     }
 
@@ -111,15 +102,14 @@ class DailyController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(Daily::findOrFail($id));
+        $show = new Show(ToDoList::findOrFail($id));
 
         $show->id('Id');
-        $show->Img('每日图片')->image();
-        $show->score('分数');
-        $show->collocation('每日搭配')->image();
-        $show->grow_up('每日成长');
-        $show->summary('每日总结');
-        $show->money('每日消费');
+        $show->title('标题');
+        $show->desc('形容');
+        $show->status('状态')->using(['0'=>'未完成','1'=>'完成']);
+        $show->good_date('最好完成时间');
+        $show->comment('评价')->using(['0'=>'未定义','1'=>'按时完成','2'=>'延长时间']);
         $show->created_at('创建时间');
         $show->updated_at('更新时间');
 
@@ -133,13 +123,22 @@ class DailyController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new Daily);
+        $form = new Form(new ToDoList);
 
-        $form->image('Img', '每日图片');
-        $form->number('score', '每日打分')->default(0);
-        $form->image('collocation', '每日穿搭');
-        $form->text('grow_up', '每日成长');
-        $form->text('summary', '每日总结');
+        $form->text('title', '标题');
+        $form->text('desc', '形容');
+        $form->select('status', '状态')->options(['0'=>'未完成','1'=>'完成'])->default(0);
+        $form->datetime('good_date', '最好完成时间')->default(date('Y-m-d H:i:s'));
+        $form->hidden('comment')->default(0);
+        $form->saving(function ($form){
+            if($form->status == 1){
+                if($form->good_date > Carbon::now()){
+                    $form->comment = 1;
+                }else{
+                    $form->comment = 2;
+                }
+            }
+        });
         return $form;
     }
 }
