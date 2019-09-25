@@ -129,7 +129,7 @@ class InterestLogController extends Controller
 
         $form->select('interest_id', 'Interest id')->options(Interest::getData());
         $form->text('illustration', '说明');
-        $form->select('week_day', '星期几')->options([0=>'星期日',1=>'星期一',2=>'星期二',3=>'星期三',4=>'星期四',5=>'星期五',6=>'星期六']);
+        $form->select('week_day', '星期几')->options([0=>'星期日',1=>'星期一',2=>'星期二',3=>'星期三',4=>'星期四',5=>'星期五',6=>'星期六'])->default(date("w",time( )));
         $data = Daily::getTimeDay();
         $data[0] = 0;
         $form->select('daily_id')->options($data)->default(key($data));

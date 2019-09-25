@@ -23,3 +23,6 @@ use Encore\Admin\Form;
 
 Form::extend('editor', WangEditor::class);
 Admin::js('/vendor/layer/layer/layer.js');
+Admin::css('/vendor/hhx.css');
+
+
