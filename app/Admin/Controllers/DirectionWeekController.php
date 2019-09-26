@@ -44,6 +44,14 @@ class DirectionWeekController extends Controller
             return DirectionLog::whereBetween('created_at',[$week_again,Carbon::now()])->where('direction_id',$id)->sum('money');
 
         });
+        $grid->actions(function ($actions) {
+            // 去掉删除
+            $actions->disableDelete();
+            // 去掉编辑
+            $actions->disableEdit();
+        });
+        $grid->disableCreateButton();
+        $grid->disableRowSelector();
 
         return $grid;
     }

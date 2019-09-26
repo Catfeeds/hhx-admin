@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Extensions\DbTopExporter;
 use App\Models\DbTop;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -83,25 +84,34 @@ class DbTopController extends Controller
         $grid = new Grid(new DbTop);
 
         $grid->id('Id');
-        $grid->no('No');
-        $grid->img('Img');
-        $grid->c_title('C title');
-        $grid->w_title('W title');
-        $grid->rating_num('Rating num');
+        $grid->no('编号')->display(function ($no){
+            return 'No.'.$no;
+        });
+        $grid->img('封面')->image();
+        $grid->c_title('中文名');
+        $grid->w_title('英文名');
+        $grid->year('年');
+        $grid->rating_num('评分')->sortable();
         $grid->inq('Inq');
-        $grid->comment_num('Comment num');
-        $grid->url('Url');
-        $grid->director('Director');
-        $grid->screen_writer('Screen writer');
-        $grid->actor('Actor');
-        $grid->type('Type');
-        $grid->time_long('Time long');
-        $grid->release_date('Release date');
-        $grid->intro('Intro');
-        $grid->status('Status');
-        $grid->created_at('Created at');
-        $grid->updated_at('Updated at');
-        $grid->year('Year');
+        $grid->comment_num('评论数');
+        $grid->director('导演');
+        $grid->screen_writer('编剧')->limit(30);
+        $grid->actor('主演');
+        $grid->time_long('时长');
+        $grid->filter(function($filter){
+            // 在这里添加字段过滤器
+            $filter->like('c_title', '中文名');
+            $filter->like('year', '年');
+        });
+        $grid->actions(function ($actions) {
+            // 去掉删除
+            $actions->disableDelete();
+            // 去掉编辑
+            $actions->disableEdit();
+        });
+        $grid->disableCreateButton();
+        $grid->disableRowSelector();
+        $grid->exporter(new DbTopExporter());
 
         return $grid;
     }
@@ -117,56 +127,30 @@ class DbTopController extends Controller
         $show = new Show(DbTop::findOrFail($id));
 
         $show->id('Id');
-        $show->no('No');
-        $show->img('Img');
-        $show->c_title('C title');
-        $show->w_title('W title');
-        $show->rating_num('Rating num');
+        $show->no('编号')->display(function ($no){
+            return 'No.'.$no;
+        });
+        $show->img('封面');
+        $show->c_title('中文名');
+        $show->w_title('英文名');
+        $show->rating_num('评分');
         $show->inq('Inq');
-        $show->comment_num('Comment num');
+        $show->comment_num('评论数');
         $show->url('Url');
-        $show->director('Director');
-        $show->screen_writer('Screen writer');
-        $show->actor('Actor');
-        $show->type('Type');
-        $show->time_long('Time long');
-        $show->release_date('Release date');
-        $show->intro('Intro');
-        $show->status('Status');
-        $show->created_at('Created at');
-        $show->updated_at('Updated at');
-        $show->year('Year');
+        $show->director('导演');
+        $show->screen_writer('编剧');
+        $show->actor('主演');
+        $show->type('类型');
+        $show->time_long('时长');
+        $show->release_date('上映日期');
+        $show->intro('简介');
+        $show->status('状态');
+        $show->created_at('创建时间');
+        $show->updated_at('更新时间');
+        $show->year('年份');
 
         return $show;
     }
 
-    /**
-     * Make a form builder.
-     *
-     * @return Form
-     */
-    protected function form()
-    {
-        $form = new Form(new DbTop);
 
-        $form->number('no', 'No');
-        $form->image('img', 'Img');
-        $form->text('c_title', 'C title');
-        $form->text('w_title', 'W title');
-        $form->text('rating_num', 'Rating num');
-        $form->text('inq', 'Inq');
-        $form->text('comment_num', 'Comment num');
-        $form->url('url', 'Url');
-        $form->text('director', 'Director');
-        $form->text('screen_writer', 'Screen writer');
-        $form->text('actor', 'Actor');
-        $form->text('type', 'Type');
-        $form->text('time_long', 'Time long');
-        $form->text('release_date', 'Release date');
-        $form->text('intro', 'Intro');
-        $form->number('status', 'Status');
-        $form->text('year', 'Year');
-
-        return $form;
-    }
 }

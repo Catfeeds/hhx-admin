@@ -93,7 +93,14 @@ class FlightController extends Controller
         $grid->discount('折扣');
         $grid->depDate('到达日期');
         $grid->created_at('创建时间');
-        $grid->disableActions();
+        $grid->actions(function ($actions) {
+            // 去掉删除
+            $actions->disableDelete();
+            // 去掉编辑
+            $actions->disableEdit();
+        });
+        $grid->disableCreateButton();
+        $grid->disableRowSelector();
 
         return $grid;
     }

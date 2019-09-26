@@ -145,6 +145,14 @@ class YyyController extends Controller
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
         $grid->exporter(new WeiboExporter());
+        $grid->actions(function ($actions) {
+            // 去掉删除
+            $actions->disableDelete();
+            // 去掉编辑
+            $actions->disableEdit();
+        });
+        $grid->disableCreateButton();
+        $grid->disableRowSelector();
 
         return $grid;
     }
