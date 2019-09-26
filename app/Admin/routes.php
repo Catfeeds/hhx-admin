@@ -44,8 +44,7 @@ Route::group([
     $router->resource('to_do_list', 'ToDoListController');
     $router->resource('db_top', 'DbTopController');
     $router->resource('travil_traffic', 'TravilTrafficController');
+    $router->resource('travil_bill', 'TravilBillController');
     $router->resource('hhx_travil', 'HhxTravilController');
-
-
-
+    
 });

@@ -97,10 +97,10 @@ class HhxTravilController extends Controller
         $grid->tools(function ($tools) {
             $url ='/admin/travil_traffic/create';
             $str = '<a href='.$url.'><button type="button" class="btn btn-info">Traffic</button></a>';
-//            $url2 = '/admin/interest_log/create';
-//            $str2 = '<a href='.$url2.'><button type="button" class="btn btn-success">兴趣Log</button></a>';
+            $url2 = '/admin/travil_bill/create';
+            $str2 = '<a href='.$url2.'><button type="button" class="btn btn-success">Bill</button></a>';
             $tools->append($str);
-//            $tools->append($str2);
+            $tools->append($str2);
         });
 
         return $grid;
