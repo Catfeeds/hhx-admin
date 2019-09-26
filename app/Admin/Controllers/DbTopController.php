@@ -95,9 +95,10 @@ class DbTopController extends Controller
         $grid->inq('Inq');
         $grid->comment_num('评论数');
         $grid->director('导演');
-        $grid->screen_writer('编剧')->limit(30);
+//        $grid->screen_writer('编剧')->limit(30);
         $grid->actor('主演');
         $grid->time_long('时长');
+        $grid->status('状态')->select(['0'=>'未看','1'=>'已看','2'=>'不感兴趣']);
         $grid->filter(function($filter){
             // 在这里添加字段过滤器
             $filter->like('c_title', '中文名');

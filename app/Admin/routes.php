@@ -43,6 +43,8 @@ Route::group([
     $router->resource('direction_week', 'DirectionWeekController');
     $router->resource('to_do_list', 'ToDoListController');
     $router->resource('db_top', 'DbTopController');
+    $router->resource('travil_traffic', 'TravilTrafficController');
+    $router->resource('hhx_travil', 'HhxTravilController');
 
 
 

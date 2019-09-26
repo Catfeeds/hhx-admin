@@ -100,6 +100,14 @@ class DailyController extends Controller
         $grid->created_at('创建时间');
 //        $grid->updated_at('更新时间');
         $grid->model()->orderBy('id', 'desc');
+        $grid->tools(function ($tools) {
+            $url ='/admin/direction_log/create';
+            $str = '<a href='.$url.'><button type="button" class="btn btn-info">方向Log</button></a>';
+            $url2 = '/admin/interest_log/create';
+            $str2 = '<a href='.$url2.'><button type="button" class="btn btn-success">兴趣Log</button></a>';
+            $tools->append($str);
+            $tools->append($str2);
+        });
         return $grid;
     }
 
