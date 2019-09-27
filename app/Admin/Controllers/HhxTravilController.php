@@ -2,13 +2,17 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\DirectionLog;
 use App\Models\HhxTravil;
 use App\Http\Controllers\Controller;
+use App\Models\TravilBill;
+use App\Models\TravilTraffic;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Table;
 
 class HhxTravilController extends Controller
 {
@@ -92,6 +96,18 @@ class HhxTravilController extends Controller
         $grid->travil_start('出发日期');
         $grid->travil_end('结束日期');
         $grid->rating_num('打分');
+        $grid->column('旅行交通账单')->modal(function (){
+            $data = TravilTraffic::where('hhx_travil_id',$this->id)->select('name','illustrate','money','travil_at')->get()->toArray();
+            return new Table(['名字','说明','金额','旅行时间'],$data);
+        });
+        $grid->column('旅行账单')->modal(function (){
+            $data = TravilBill::where('hhx_travil_id',$this->id)->pluck('direction_id');
+            $t = [];
+            foreach ($data as $da){
+                $t[] = DirectionLog::where('id',$da)->select('illustration','money','created_at')->first()->toArray();
+            }
+            return new Table(['说明','金额','添加时间'],$t);
+        });
         $grid->created_at('创建日期');
         $grid->updated_at('更新日期');
         $grid->tools(function ($tools) {

@@ -86,7 +86,7 @@ class ToDoListController extends Controller
         $grid->id('Id');
         $grid->title('标题');
         $grid->desc('形容')->limit(30);
-        $grid->status('状态')->editable(['0'=>'未完成','1'=>'完成']);
+        $grid->status('状态')->select(['0'=>'未完成','1'=>'完成']);
         $grid->good_date('最好完成时间');
         $grid->comment('评价')->using(['0'=>'未定义','1'=>'按时完成','2'=>'延长时间']);
         $grid->created_at('创建时间');

@@ -11,6 +11,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Table;
 
 class DailyController extends Controller
 {
@@ -96,7 +97,10 @@ class DailyController extends Controller
         $grid->collocation('每日搭配')->image();
         $grid->grow_up('每日成长')->limit(30);
         $grid->summary('每日总结')->limit(30);
-        $grid->money('每日消费');
+        $grid->money('每日消费')->modal(function (){
+            $data = DirectionLog::where('daily_id',$this->id)->select('illustration','money')->get()->toArray();
+            return new Table(['说明','金额'],$data);
+        });
         $grid->created_at('创建时间');
 //        $grid->updated_at('更新时间');
         $grid->model()->orderBy('id', 'desc');
