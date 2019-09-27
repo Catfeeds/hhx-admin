@@ -124,7 +124,7 @@ class TravilBillController extends Controller
         $form = new Form(new TravilBill);
         $data1 = DirectionLog::getIllustration();
         $data1[0] = 0;
-        $form->select('direction_id', 'Direction id')->options(key($data1));
+        $form->select('direction_id', 'Direction id')->options($data1)->default(key($data1));
         $form->select('hhx_travil_id', 'Hhx travil id')->options(HhxTravil::getName());
         return $form;
     }

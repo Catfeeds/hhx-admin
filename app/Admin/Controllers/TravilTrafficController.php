@@ -92,7 +92,7 @@ class TravilTrafficController extends Controller
         $grid->money('金额');
         $grid->ok('Ok')->using([0=>'0k',2=>'bad']);
         $grid->travil_at('旅行时间');
-        $grid->status('状态')->using([0=>'未出发',1=>'已出发']);
+        $grid->status('状态')->select([0=>'未出发',1=>'已出发']);
         $grid->hhx_travil_id('travil id');
         $grid->created_at('创建时间');
         return $grid;
@@ -143,12 +143,11 @@ class TravilTrafficController extends Controller
         $form->select('status', '状态')->options([0=>'未出发',1=>'已出发'])->default(0);
         $data1 = DirectionLog::getIllustration();
         $data1[0] = 0;
-        $form->select('direction_id', '方向LogId')->options(key($data1));
+        $form->select('direction_id', '方向LogId')->options($data1)->default(key($data1));
         $data = Daily::getTimeDay();
         $data[0] = 0;
-        $form->number('daily_id', '日常Id')->options(key($data));
+        $form->select('daily_id', '日常Id')->options($data)->default(key($data));
         $form->select('hhx_travil_id', 'Hhx旅行Id')->options(HhxTravil::getName());
-
         return $form;
     }
 }
