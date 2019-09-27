@@ -6,6 +6,7 @@ use App\Models\DirectionLog;
 use App\Models\HhxTravil;
 use App\Http\Controllers\Controller;
 use App\Models\TravilBill;
+use App\Models\TravilEquip;
 use App\Models\TravilTraffic;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -107,6 +108,11 @@ class HhxTravilController extends Controller
                 $t[] = DirectionLog::where('id',$da)->select('illustration','money','created_at')->first()->toArray();
             }
             return new Table(['说明','金额','添加时间'],$t);
+        });
+        $grid->column('旅行装备')->modal(function (){
+            $data = TravilEquip::where('hhx_travil_id',$this->id)->select('name','status')->get()->toArray();
+            return new Table(['名字','状态'],$data);
+
         });
         $grid->created_at('创建日期');
         $grid->updated_at('更新日期');
