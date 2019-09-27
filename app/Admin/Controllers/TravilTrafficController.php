@@ -94,7 +94,7 @@ class TravilTrafficController extends Controller
         $grid->travil_at('旅行时间');
         $grid->status('状态')->select([0=>'未出发',1=>'已出发']);
         $grid->hhx_travil_id('旅行Id')->display(function ($hhx_travil_id){
-            return HhxTravil::whereId('id',$hhx_travil_id)->value('name');
+            return HhxTravil::where('id',$hhx_travil_id)->value('name');
 
         });
         $grid->created_at('创建时间');

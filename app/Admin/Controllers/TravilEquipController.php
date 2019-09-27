@@ -86,7 +86,7 @@ class TravilEquipController extends Controller
         $grid->id('Id');
         $grid->name('名字');
         $grid->hhx_travil_id('旅行Id')->display(function ($hhx_travil_id){
-            return HhxTravil::whereId('id',$hhx_travil_id)->value('name');
+            return HhxTravil::where('id',$hhx_travil_id)->value('name');
 
         });
         $grid->status('状态')->select([0=>'购买','1'=>'已有','2'=>'需复查','3'=>'复查','4'=>'形成结束','5'=>'不带']);
