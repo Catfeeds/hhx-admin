@@ -93,6 +93,14 @@ class WeiboUserController extends Controller
         $grid->screen_name('Screen name');
         $grid->statuses_count('Statuses count');
         $grid->status('Status')->select([0=>'new','old']);
+        $grid->actions(function ($actions) {
+            // 去掉删除
+            $actions->disableDelete();
+            // 去掉编辑
+            $actions->disableEdit();
+        });
+
+        $grid->disableRowSelector();
 
 
         return $grid;

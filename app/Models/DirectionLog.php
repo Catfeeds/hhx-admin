@@ -22,4 +22,8 @@ class DirectionLog extends Model
 
         });
     }
+
+    static public function getIllustration(){
+        return  DirectionLog::query()->limit(7)->orderBy('id' ,'desc')->pluck('illustration','id');
+    }
 }

@@ -104,6 +104,14 @@ class CtripController extends Controller
 //EOF;
 //            $tools->append($importButton);
         });
+        $grid->actions(function ($actions) {
+            // 去掉删除
+            $actions->disableDelete();
+            // 去掉编辑
+            $actions->disableEdit();
+        });
+        $grid->disableCreateButton();
+        $grid->disableRowSelector();
 
 
         return $grid;

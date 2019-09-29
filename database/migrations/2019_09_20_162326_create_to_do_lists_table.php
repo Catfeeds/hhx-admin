@@ -18,7 +18,7 @@ class CreateToDoListsTable extends Migration
             $table->string('title',16)->default('')->comment('标题');
             $table->string('desc',255)->default('')->comment('详情');
             $table->smallInteger('status')->default(0)->comment('状态0未完成1完成');
-            $table->timestamp('good_date')->comment('最好完成时间');
+            $table->date('good_date')->comment('最好完成时间');
             $table->smallInteger('comment')->default(0)->comment('0未定义1按时完成2延长时间');
             $table->timestamps();
         });

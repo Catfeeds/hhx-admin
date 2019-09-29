@@ -42,7 +42,10 @@ Route::group([
     $router->resource('flight', 'FlightController');
     $router->resource('direction_week', 'DirectionWeekController');
     $router->resource('to_do_list', 'ToDoListController');
-
-
+    $router->resource('db_top', 'DbTopController');
+    $router->resource('travil_traffic', 'TravilTrafficController');
+    $router->resource('travil_bill', 'TravilBillController');
+    $router->resource('hhx_travil', 'HhxTravilController');
+    $router->resource('travil_equip', 'TravilEquipController');
 
 });
