@@ -20,7 +20,7 @@ class DoubanController extends Controller
     public function top250(Request $request){
         $datas = DbTop::query()->paginate(10);
         $data['data'] =$datas;
-        return view('home.douban.top250',$data);
+        return view('Home.douban.top250',$data);
     }
 
 
