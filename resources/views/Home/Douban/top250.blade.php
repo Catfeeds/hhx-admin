@@ -22,7 +22,7 @@
 
 <div class="min-div">
     <div class="page-header">
-        <h1>DouBan-Top250 <small>Subtext for header</small></h1>
+        <h1>DouBan-Top250 <small>Hhx06</small></h1>
     </div>
     @foreach($data as $da)
         <div class="panel panel-success">
