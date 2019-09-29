@@ -22,4 +22,5 @@ Route::get('/', function () {
 Route::any('/texts', 'textController@index');
 Route::get('/basic', 'Basic\BasicController@getd');
 Route::post('/uploadFiles', 'UploadsController@uploadImg');
+Route::get('/top250','Home\DoubanController@top250');
 

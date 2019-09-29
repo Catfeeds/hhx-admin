@@ -107,8 +107,8 @@ class DbTopController extends Controller
         $grid->actions(function ($actions) {
             // 去掉删除
             $actions->disableDelete();
-            // 去掉编辑
-            $actions->disableEdit();
+//            // 去掉编辑
+////            $actions->disableEdit();
         });
         $grid->disableCreateButton();
         $grid->disableRowSelector();
@@ -149,8 +149,23 @@ class DbTopController extends Controller
         $show->created_at('创建时间');
         $show->updated_at('更新时间');
         $show->year('年份');
+        $show->pan_url('pan_url', 'pan链接');
+        $show->pan_code('pan_code', 'code');
 
         return $show;
+    }
+
+    /**
+     * Make a form builder.
+     *
+     * @return Form
+     */
+    protected function form()
+    {
+        $form = new Form(new DbTop());
+        $form->text('pan_url', 'pan链接');
+        $form->text('pan_code', 'code');
+        return $form;
     }
 
 
