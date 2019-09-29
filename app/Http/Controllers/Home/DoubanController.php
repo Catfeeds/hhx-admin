@@ -13,8 +13,6 @@ use App\Http\Controllers\Controller;
 use App\Models\DbTop;
 use Illuminate\Support\Facades\Request;
 
-
-
 class DoubanController extends Controller
 {
     public function top250(Request $request){
