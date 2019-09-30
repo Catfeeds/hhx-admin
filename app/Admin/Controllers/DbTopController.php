@@ -82,7 +82,14 @@ class DbTopController extends Controller
     protected function grid()
     {
         $grid = new Grid(new DbTop);
-
+        $grid->header(function ($query) {
+            $alread = DbTop::whereStatus(1)->count();
+            $notyet = DbTop::whereStatus(0)->count();
+            $notok = DbTop::whereStatus(2)->count();
+            $pan = DbTop::where('pan_url','<>','')->count();
+            $x =   '已看:'.$alread.',未看:'.$notyet.',不感兴趣:'.$notok.',资源:'.$pan;
+            return '<div class="alert alert-success" role="alert">'.$x.'</div>';
+        });
         $grid->id('Id');
         $grid->no('编号')->display(function ($no){
             return 'No.'.$no;
@@ -95,7 +102,6 @@ class DbTopController extends Controller
         $grid->inq('Inq');
         $grid->comment_num('评论数');
         $grid->director('导演');
-//        $grid->screen_writer('编剧')->limit(30);
         $grid->actor('主演');
         $grid->time_long('时长');
         $grid->status('状态')->select(['0'=>'未看','1'=>'已看','2'=>'不感兴趣']);
@@ -107,8 +113,7 @@ class DbTopController extends Controller
         $grid->actions(function ($actions) {
             // 去掉删除
             $actions->disableDelete();
-//            // 去掉编辑
-////            $actions->disableEdit();
+
         });
         $grid->disableCreateButton();
         $grid->disableRowSelector();
@@ -165,6 +170,7 @@ class DbTopController extends Controller
         $form = new Form(new DbTop());
         $form->text('pan_url', 'pan链接');
         $form->text('pan_code', 'code');
+        $form->select('status', '状态')->options(['0'=>'未看','1'=>'已看','2'=>'不感兴趣']);
         return $form;
     }
 
