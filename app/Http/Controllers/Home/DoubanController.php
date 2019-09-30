@@ -20,6 +20,4 @@ class DoubanController extends Controller
         $data['data'] =$datas;
         return view('Home.Douban.top250',$data);
     }
-
-
 }

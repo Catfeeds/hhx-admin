@@ -29,7 +29,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">{{$da->c_title.$da->w_title.$da->year}}</h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body url-button">
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-default">排名:No.{{$da->no}}</li>
                     <li class="list-group-item list-group-item-default">评分:{{$da->rating_num}}</li>
@@ -43,7 +43,7 @@
                     <li class="list-group-item list-group-item-default">简介:{{$da->intro}}</li>
                 </ul>
                 @if(!empty($da->pan_url))
-                    <button type="button"  class="btn btn-s btn-info" data-toggle="popover" data-content="CODE:{{$da->pan_code}}" title="URL:{{$da->pan_url}}">Url</button>
+                    <button type="button" class="btn btn-s btn-info" data-toggle="popover" data-content="URL:{{$da->pan_url}}" title="CODE:{{$da->pan_code}}">Url</button>
                 @endif
             </div>
         </div>

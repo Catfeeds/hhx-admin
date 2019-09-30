@@ -8,3 +8,6 @@
 /*.page-div{*/
 /*    padding: 0 0 0 30%;*/
 /*}*/
+.url-button .popover{
+    max-width: none;
+}
