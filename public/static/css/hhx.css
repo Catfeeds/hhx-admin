@@ -11,3 +11,32 @@
 .url-button .popover{
     max-width: none;
 }
+
+.daily-text{
+    padding-left: 6px;
+}
+.daily-collocation{
+    margin-left: 2%;
+}
+.daily-img{
+    display: inline;
+    float:left;
+    max-width:40%;
+}
+
+.daily-img-list {
+    margin-left: 4%;
+    overflow:hidden
+}
+.daily-list {
+    margin-left: 4%;
+    margin-top: 10px;
+    width:79%;
+
+}
+.daily-title{
+    margin-left: 4%;
+    width:79%;
+    margin-top: 10px;
+}
+

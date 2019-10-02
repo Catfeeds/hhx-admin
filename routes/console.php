@@ -22,3 +22,6 @@ Artisan::command('damai', function () {
 Artisan::command('ctrip', function () {
     \App\Handlers\CtripHandler::getData();
 })->describe('携程同步');
+Artisan::command('daily', function () {
+    \App\Handlers\DailyHandler::getData();
+})->describe('日报');
