@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Daily;
 use Illuminate\Support\Facades\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -28,8 +29,9 @@ class textController extends Controller
 //
 //    }
         public function index(Request $request){
-            
-
+            $daily = Daily::orderBy('id','desc')->first();
+            $data['daily'] = $daily;
+            return view('Emails.Daily',$data);
         }
 
 
