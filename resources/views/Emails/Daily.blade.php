@@ -20,11 +20,11 @@
     <div class ="daily-img-list">
         <div class ="daily-img">
             <p class="text-primary daily-text">今日图片：</p>
-            <img src="{{asset(storage_path($daily->Img))}}" class="img-thumbnail">
+            <img src="{{asset('storage/'.$daily->Img)}}" class="img-thumbnail">
         </div>
         <div class = "daily-img daily-collocation">
             <p class="text-info daily-text">今日穿搭：</p>
-            <img src="{{asset($daily->collocation)}}" class="img-thumbnail">
+            <img src="{{asset('storage/'.$daily->collocation)}}" class="img-thumbnail">
         </div>
     </div>
     @if(count($direction_logs)>0)
