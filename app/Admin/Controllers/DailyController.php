@@ -147,9 +147,9 @@ class DailyController extends Controller
     {
         $form = new Form(new Daily);
 
-        $form->image('Img', '每日图片');
+        $form->image('Img', '每日图片')->uniqueName();
         $form->number('score', '每日打分')->default(5);
-        $form->image('collocation', '每日穿搭');
+        $form->image('collocation', '每日穿搭')->uniqueName();
         $form->text('grow_up', '每日成长');
         $form->text('summary', '每日总结');
         return $form;
