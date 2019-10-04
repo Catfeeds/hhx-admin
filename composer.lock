@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1378f06e3121996ae1586a3ad96629a",
+    "content-hash": "a43515c9438b8cdd0a940121b1bb3ba2",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1531,6 +1531,64 @@
                 "url"
             ],
             "time": "2019-07-01T23:21:34+00:00"
+        },
+        {
+            "name": "hhx/echart",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/huangxiaoxi0606/hhxEchart.git",
+                "reference": "6f36f7ba3237b79cac52d984f641cf65b2cd238b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/huangxiaoxi0606/hhxEchart/zipball/6f36f7ba3237b79cac52d984f641cf65b2cd238b",
+                "reference": "6f36f7ba3237b79cac52d984f641cf65b2cd238b",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "encore/laravel-admin": "~1.6",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Encore\\HhxEchart\\HhxEchartServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Encore\\HhxEchart\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "hhx06",
+                    "email": "1007502956@qq.com"
+                }
+            ],
+            "description": "Hhx的echart",
+            "homepage": "https://github.com/laravel-admin-ext/hhx-echart",
+            "keywords": [
+                "extension",
+                "laravel-admin"
+            ],
+            "time": "2019-08-30T07:02:20+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",

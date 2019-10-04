@@ -39,6 +39,7 @@ Route::group([
     $router->resource('interest_log', 'InterestLogController');
     $router->resource('direction', 'DirectionController');
     $router->resource('direction_log', 'DirectionLogController');
+    $router->any('direction_log_week', 'DirectionLogController@week');
     $router->resource('flight', 'FlightController');
     $router->resource('direction_week', 'DirectionWeekController');
     $router->resource('to_do_list', 'ToDoListController');
