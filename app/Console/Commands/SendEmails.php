@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Handlers\DailyHandler;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SendEmails extends Command
@@ -52,6 +53,7 @@ class SendEmails extends Command
             $message->subject('[ daily] 日报 - ' .date('Y-m-d'));
             $message->to($toMail);
         });
+        Log::info('its ok');
 
     }
 }

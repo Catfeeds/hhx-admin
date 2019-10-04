@@ -6,6 +6,7 @@ use App\Models\Daily;
 use App\Models\Direction;
 use App\Models\DirectionLog;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -87,6 +88,13 @@ class DirectionLogController extends Controller
     protected function grid()
     {
         $grid = new Grid(new DirectionLog);
+        $grid->header(function () {
+            $week_again = date("Y-m-d",strtotime("this week"));
+            $mouth_again = date("Y-m-d",strtotime("this mouth"));
+            $week = DirectionLog::whereBetween('created_at',[$week_again,Carbon::now()])->sum('money');
+            $mouth = DirectionLog::whereBetween('created_at',[$mouth_again,Carbon::now()])->sum('money');
+            return '本周合计:'.$week.',本月合计:'.$mouth;
+        });
         $grid->id('Id');
         $grid->direction_id('Direction id');
         $grid->daily_id('Daily id');
@@ -98,6 +106,11 @@ class DirectionLogController extends Controller
         $grid->created_at('创建时间');
 //        $grid->updated_at('更新时间');
         $grid->model()->orderBy('id', 'desc');
+        $grid->tools(function ($tools) {
+            $url2 = '/admin/interest_log/create';
+            $str2 = '<a href='.$url2.'><button type="button" class="btn btn-success">兴趣Log</button></a>';
+            $tools->append($str2);
+        });
 
 
         return $grid;
