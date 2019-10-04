@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\DirectionLog;
 use Encore\Admin\Controllers\Dashboard;
 use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
@@ -12,6 +13,7 @@ class HomeController extends Controller
 {
     public function index(Content $content)
     {
+//        DirectionLog::getData();
         return $content
             ->header('Dashboard')
             ->description('Description...')

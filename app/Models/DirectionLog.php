@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -25,5 +26,27 @@ class DirectionLog extends Model
 
     static public function getIllustration(){
         return  DirectionLog::query()->limit(7)->orderBy('id' ,'desc')->pluck('illustration','id');
+    }
+
+    static public function getData($type =1){
+        switch ($type){
+            case 1:
+                $start = date("Y-m-d",strtotime("this week"));
+                break;
+            case 2:
+                $start = date("Y-m-d",strtotime("this mouth"));
+                break;
+            case 3:
+                $start = date("Y-m-d",strtotime("this year"));
+                break;
+            default:
+                $start = '2019-01-01';
+
+        }
+        $directions = Direction::query()->select('name','id')->get();
+        foreach($directions as $direction){
+            $data[$direction->name] = DirectionLog::whereBetween('created_at',[$start,Carbon::now()])->where('direction_id',$direction->id)->sum('money');
+        }
+        return $data;
     }
 }

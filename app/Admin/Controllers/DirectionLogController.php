@@ -9,8 +9,12 @@ use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
+use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
+use Encore\Admin\Layout\Row;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Box;
+use Encore\HhxEchart\HhxEchart;
 
 class DirectionLogController extends Controller
 {
@@ -141,4 +145,34 @@ class DirectionLogController extends Controller
         $form->select('daily_id')->options($data)->default(key($data));
         return $form;
     }
+
+
+    public function week(Content $content)
+    {
+        return $content->header('花销分布')
+            ->row(function (Row $row) {
+                $row->column(6, function (Column $column){
+                    $data = DirectionLog::getData(1);
+                    $dt =[];
+                    foreach($data as$k=> $da){
+                        $d['name'] = $k;
+                        $d['value'] = $da;
+                        $dt[] = $d;
+                    }
+                    $chartData = [
+                        'title' => '本周花销',
+                        'legends' => array_keys($data),
+                        'seriesName' => '总占比',
+                        'seriesData' => $dt
+                    ];
+                    $options = [
+                        'chartId' => 6,
+                        'height' => '500px',
+                        'chartJson' => json_encode($chartData)
+                    ];
+                    $column->row(new Box('本周花销', HhxEchart::pie($options)));
+                });
+            });
+
+        }
 }
