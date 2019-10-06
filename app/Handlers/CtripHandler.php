@@ -8,6 +8,7 @@
 namespace App\Handlers;
 
 use App\Models\Ctrip;
+use Illuminate\Support\Facades\Log;
 
 class CtripHandler{
     /**
@@ -113,6 +114,7 @@ class CtripHandler{
      */
     //php artisan command:ctrip
     static public function getData(){
+        Log::info('ctrip');
         self::mysqlRequest();
     }
 

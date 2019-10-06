@@ -11,11 +11,13 @@ use App\Models\Daily;
 use App\Models\DirectionLog;
 use App\Models\InterestLog;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 
 class DailyHandler
 {
     static public function getData(){
+        Log::info('success');
         $daily = Daily::orderBy('id','desc')->first();
         $direction_logs = DirectionLog::where('daily_id',$daily->id)->get();
         $interest_logs = InterestLog::where('daily_id',$daily->id)->get();
