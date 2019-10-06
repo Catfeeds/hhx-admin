@@ -48,5 +48,7 @@ Route::group([
     $router->resource('travil_bill', 'TravilBillController');
     $router->resource('hhx_travil', 'HhxTravilController');
     $router->resource('travil_equip', 'TravilEquipController');
+    $router->resource('wish_list', 'WishListController');
+
 
 });
