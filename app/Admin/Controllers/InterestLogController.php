@@ -92,7 +92,11 @@ class InterestLogController extends Controller
         $grid->created_at('创建时间');
         $grid->updated_at('更新时间');
         $grid->model()->orderBy('id', 'desc');
-
+        $grid->tools(function ($tools) {
+            $url ='/admin/direction_log/create';
+            $str = '<a href='.$url.'><button type="button" class="btn btn-info">方向Log</button></a>';
+            $tools->append($str);
+        });
 
         return $grid;
     }
