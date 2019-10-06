@@ -16,13 +16,13 @@ use Illuminate\Foundation\Inspiring;
 //Artisan::command('inspire', function () {
 //    $this->comment(Inspiring::quote());
 //})->describe('Display an inspiring quote');
-\Illuminate\Support\Facades\Artisan::command('damai', function () {
+\Illuminate\Support\Facades\Artisan::command('damais', function () {
     \App\Handlers\DamaiHandler::carbonGet();
 })->describe('大麦同步');
-\Illuminate\Support\Facades\Artisan::command('ctrip', function () {
+\Illuminate\Support\Facades\Artisan::command('ctrips', function () {
     \App\Handlers\CtripHandler::getData();
 })->describe('携程同步');
-\Illuminate\Support\Facades\Artisan::command('daily', function () {
+\Illuminate\Support\Facades\Artisan::command('dailys', function () {
     \App\Handlers\DailyHandler::getData();
 })->describe('日报');
 
