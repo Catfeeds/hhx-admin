@@ -114,7 +114,7 @@ class CtripHandler{
      */
     //php artisan command:ctrip
     static public function getData(){
-        Log::info('ctrip');
+//        Log::info('getdata');
         self::mysqlRequest();
     }
 
