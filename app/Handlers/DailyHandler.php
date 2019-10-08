@@ -33,4 +33,8 @@ class DailyHandler
         ];
         return $data;
     }
+
+    static public function getHhx(){
+        Log::info('HHX is success');
+    }
 }
