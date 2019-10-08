@@ -140,22 +140,9 @@ class DbMusicTopController extends Controller
     {
         $form = new Form(new DbMusicTop);
 
-        $form->number('no', 'No');
-        $form->image('img', 'Img');
-        $form->text('title', 'Title');
-        $form->text('sing_name', 'Sing name');
-        $form->text('date', 'Date');
-        $form->text('album', 'Album');
-        $form->text('cd', 'Cd');
-        $form->text('type', 'Type');
-        $form->text('star', 'Star');
-        $form->text('comment', 'Comment');
-        $form->textarea('intro', 'Intro');
-        $form->textarea('songs', 'Songs');
-        $form->number('status', 'Status');
-        $form->text('pan_code', 'Pan code');
-        $form->text('pan_url', 'Pan url');
-
+        $form->text('pan_url', 'pan链接');
+        $form->text('pan_code', 'code');
+        $form->select('status', '状态')->options(['0'=>'未看','1'=>'已看','2'=>'不感兴趣']);
         return $form;
     }
 }
