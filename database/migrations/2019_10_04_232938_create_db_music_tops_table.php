@@ -17,7 +17,7 @@ class CreateDbMusicTopsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('no')->default(0)->comment('排名');
             $table->string('img',255)->default('')->comment('封面图片');
-            $table->string('title',32)->default('')->comment('中文名');
+            $table->string('title',64)->default('')->comment('中文名');
             $table->string('sing_name',32)->default('')->comment('歌手名');
             $table->string('date',16)->default('')->comment('日期');
             $table->string('album',16)->default('')->comment('专辑/单曲');
