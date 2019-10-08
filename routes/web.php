@@ -23,5 +23,6 @@ Route::any('/texts', 'textController@index');
 Route::get('/basic', 'Basic\BasicController@getd');
 Route::post('/uploadFiles', 'UploadsController@uploadImg');
 Route::get('/top250','Home\DoubanController@top250');
+Route::get('/music_top250','Home\DbMusicTopController@top250');
 Route::get('/daily','Home\DailyController@index');
 

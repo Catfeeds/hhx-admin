@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Top250</title>
+    <title>MusicTop250</title>
     <!-- Bootstrap -->
 {{--    <link href="{{asset('static/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">--}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,26 +22,23 @@
 
 <div class="min-div">
     <div class="page-header">
-        <h1>DouBan-Top250 <small>Hhx06</small></h1>
+        <h1>DbMusic-Top250 <small>Hhx06</small></h1>
     </div>
     @foreach($data as $da)
         <div class="panel panel-success">
             <div class="panel-heading">
-                <h3 class="panel-title">{{$da->c_title.$da->w_title.$da->year}}</h3>
+                <h3 class="panel-title">{{$da->title}}</h3>
             </div>
             <div class="panel-body url-button">
                 <ul class="list-group">
                     <img src="{{'storage/'.$da->img}}" alt="{{$da->title}}" class="img-rounded">
                     <li class="list-group-item list-group-item-default">排名:No.{{$da->no}}</li>
-                    <li class="list-group-item list-group-item-default">评分:{{$da->rating_num}}</li>
-                    <li class="list-group-item list-group-item-default">{{$da->inq}}</li>
+                    <li class="list-group-item list-group-item-default">评分:{{$da->star}}</li>
                     <li class="list-group-item list-group-item-default">{{$da->comment_num}}</li>
-                    <li class="list-group-item list-group-item-default">导演:{{$da->director}}</li>
-                    <li class="list-group-item list-group-item-default">主演:{{$da->actor}}</li>
-                    <li class="list-group-item list-group-item-default">类型:{{$da->type}}</li>
-                    <li class="list-group-item list-group-item-default">时长:{{$da->time_long}}</li>
-                    <li class="list-group-item list-group-item-default">上映日期:{{$da->release_date}}</li>
-                    <li class="list-group-item list-group-item-default">简介:{{$da->intro}}</li>
+                    <li class="list-group-item list-group-item-default">{{$da->sing_name}}</li>
+                    <li class="list-group-item list-group-item-default">{{$da->date.'/'.$da->ablum.'/'.$da->cd.'/'.$da->type}}</li>
+                    <li class="list-group-item list-group-item-default">{{$da->intro}}</li>
+                    <li class="list-group-item list-group-item-default">{{$da->songs}}</li>
                 </ul>
                 @if(!empty($da->pan_url))
                     <button type="button" class="btn btn-s btn-info" data-toggle="popover" data-content="URL:{{$da->pan_url}}" title="CODE:{{$da->pan_code}}">Url</button>
