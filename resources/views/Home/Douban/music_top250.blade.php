@@ -36,7 +36,7 @@
                     <li class="list-group-item list-group-item-default">评分:{{$da->star}}</li>
                     <li class="list-group-item list-group-item-default">{{$da->comment_num}}</li>
                     <li class="list-group-item list-group-item-default">{{$da->sing_name}}</li>
-                    <li class="list-group-item list-group-item-default">{{$da->date.'/'.$da->ablum.'/'.$da->cd.'/'.$da->type}}</li>
+                    <li class="list-group-item list-group-item-default">{{$da->date.'/'.$da->album.'/'.$da->cd.'/'.$da->type}}</li>
                     <li class="list-group-item list-group-item-default">{{$da->intro}}</li>
                     <li class="list-group-item list-group-item-default">{{$da->songs}}</li>
                 </ul>
