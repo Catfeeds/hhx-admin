@@ -49,6 +49,5 @@ Route::group([
     $router->resource('hhx_travil', 'HhxTravilController');
     $router->resource('travil_equip', 'TravilEquipController');
     $router->resource('wish_list', 'WishListController');
-
-
+    $router->resource('db_music_top', 'DbMusicTopController');
 });
