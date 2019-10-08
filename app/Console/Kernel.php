@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
          $schedule->command('damais')->daily();
          $schedule->command('ctrips')->daily();
          $schedule->command('dailys')->daily();
+         $schedule->command('hhx')->everyMinute();
     }
 
     /**

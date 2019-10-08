@@ -25,5 +25,8 @@ use Illuminate\Foundation\Inspiring;
 \Illuminate\Support\Facades\Artisan::command('dailys', function () {
     \App\Handlers\DailyHandler::getData();
 })->describe('日报');
+\Illuminate\Support\Facades\Artisan::command('hhx', function () {
+    \App\Handlers\DailyHandler::getHhx();
+})->describe('ceshi');
 
 
