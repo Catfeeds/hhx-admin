@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Mail;
 class DailyHandler
 {
     static public function getData(){
-        Log::info(time().'daily已经执行');
         $daily = Daily::orderBy('id','desc')->first();
         $direction_logs = DirectionLog::where('daily_id',$daily->id)->get();
         $interest_logs = InterestLog::where('daily_id',$daily->id)->get();
@@ -32,18 +31,18 @@ class DailyHandler
             'week' =>$weeks[$week],
             'yesterDate'=>$yesterDate,
         ];
+        return $data;
+    }
+
+    static public function getHhx(){
         $view = 'Emails.Daily';
-//        $data = DailyHandler::getData();
+        $data = DailyHandler::getData();
         $toMail = 'hhx06@outlook.com';
         Mail::send($view,$data ,function ($message) use ($toMail) {
             $message->subject('[ daily] 日报 - ' .date('Y-m-d'));
             $message->to($toMail);
         });
         Log::info('its ok');
-//        return $data;
-    }
 
-    static public function getHhx(){
-        Log::info(time().'HHX is success');
     }
 }

@@ -23,11 +23,9 @@ use Illuminate\Foundation\Inspiring;
     \App\Handlers\CtripHandler::getData();
 })->describe('携程同步');
 \Illuminate\Support\Facades\Artisan::command('dailys', function () {
-    \App\Handlers\DailyHandler::getData();
-})->describe('日报');
-\Illuminate\Support\Facades\Artisan::command('hhx', function () {
     \App\Handlers\DailyHandler::getHhx();
-})->describe('日报CESHI');
+})->describe('日报');
+
 
 
 
