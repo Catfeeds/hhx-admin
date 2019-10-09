@@ -12,6 +12,7 @@ use App\Models\DirectionLog;
 use App\Models\InterestLog;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 
 class DailyHandler
@@ -31,7 +32,15 @@ class DailyHandler
             'week' =>$weeks[$week],
             'yesterDate'=>$yesterDate,
         ];
-        return $data;
+        $view = 'Emails.Daily';
+//        $data = DailyHandler::getData();
+        $toMail = 'hhx06@outlook.com';
+        Mail::send($view,$data ,function ($message) use ($toMail) {
+            $message->subject('[ daily] 日报 - ' .date('Y-m-d'));
+            $message->to($toMail);
+        });
+        Log::info('its ok');
+//        return $data;
     }
 
     static public function getHhx(){
