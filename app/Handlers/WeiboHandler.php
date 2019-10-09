@@ -26,12 +26,6 @@ class WeiboHandler
 
 //    主程序
     static public function getData(){
-        # [uid :1836758555,q:Hhx_06]
-//        [uid :1822796164,q:吴青峰]
-//        [uid :1779763091,q:Yyy_07]
-//        [uid :1751035982,q:田馥甄]
-//        $uid = '1751035982';
-//        $q = '田馥甄';
         $weibo_users = WeiboUser::select('screen_name','weibo_id')->get();
         foreach ($weibo_users as $weibo_user){
             $uid=$weibo_user->weibo_id;
