@@ -95,7 +95,7 @@ class WqfController extends Controller
             }else{
                 $user['gender'] ='girl';
             }
-            $user['avatar_hd'] = '<img src=" '.env('APP_URL')."/uploads/".$user["avatar_hd"].'">';
+            $user['avatar_hd'] = '<img src=" '.env('APP_URL')."/storage/uploads/".$user["avatar_hd"].'">';
             return new Table(['key', 'value'], $user);
         });
         $grid->column('text')->display(function () {
@@ -110,10 +110,10 @@ class WqfController extends Controller
                 $pics = WeiboPics::where('weibo_info_id',$model->weibo_info_id)->select('url')->get();
                 foreach ($pics as $pic){
                     $num ++;
-                    $data_u[$num] = '<img src=" '.env('APP_URL')."/uploads/".$pic->url.'">';
+                    $data_u[$num] = '<img src=" '.env('APP_URL')."/storage/uploads/".$pic->url.'">';
                 }
             }elseif($model->pic_num ==1 && $model->thumbnail_pic!=''){
-                $data_u['1'] = '<img src=" '.env('APP_URL')."/uploads/".$model->thumbnail_pic .'">';
+                $data_u['1'] = '<img src=" '.env('APP_URL')."/storage/uploads/".$model->thumbnail_pic .'">';
             }
             else{
                 $data_u['pic'] = '一张图片都没有';
