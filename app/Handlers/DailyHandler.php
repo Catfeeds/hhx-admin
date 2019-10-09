@@ -35,6 +35,6 @@ class DailyHandler
     }
 
     static public function getHhx(){
-        Log::info('HHX is success');
+        Log::info(time().'HHX is success');
     }
 }
