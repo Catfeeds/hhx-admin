@@ -37,7 +37,6 @@ class Weibo extends Model
                 }
             }
         }
-
         if(isset($pic_all) && !empty($data_all)){
             DB::table('weibo_pics')->insert($pic_all);
             DB::table('weibos')->insert($data_all);
