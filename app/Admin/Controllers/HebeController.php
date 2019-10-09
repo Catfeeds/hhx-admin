@@ -95,7 +95,8 @@ class HebeController extends Controller
             }else{
                 $user['gender'] ='girl';
             }
-            $user['avatar_hd'] = '<img src=" '.env('APP_URL')."/storage/".$user["avatar_hd"].'">';
+            $user['avatar_hd'] = '<img src=" '.env('APP_URL')."/storage/
+            ".$user["avatar_hd"].'">';
             return new Table(['key', 'value'], $user);
         });
         $grid->column('text')->display(function () {
@@ -112,7 +113,7 @@ class HebeController extends Controller
                     $num ++;
                     $data_u[$num] = '<img src=" '.env('APP_URL')."/storage/".$pic->url.'">';
                 }
-            }elseif($model->pic_num ==1){
+            }elseif($model->pic_num == 1){
                 $data_u['1'] = '<img src=" '.env('APP_URL')."/storage/".$model->thumbnail_pic .'">';
             }
             else{

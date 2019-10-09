@@ -55,10 +55,7 @@ class WeiboHandler
             if($us['status'] == 0){
                 WeiboUser::where('weibo_id',$us['weibo_id'])->update(['status'=>1]);
             }
-
         }
-
-
         dd('结束');
 
     }
