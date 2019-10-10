@@ -129,17 +129,22 @@ class HhxController extends Controller
         $grid->reposts_count('转发个数');
         $grid->column('repost_id')->expand(function ($model) {
             if($model->repost_id){
-                $weibo = Weibo::where('id',$model->repost_id)->first()->toArray();
-                $wb = [
-                    'id' =>$weibo['id'],
-                    'weibo用户名' =>$weibo['screen_name'],
-                    'text' =>$weibo['text'],
-                    'weibo_created_at' =>$weibo['weibo_created_at'],
-                    'comments_count' =>$weibo['comments_count'],
-                    'attitudes_count' =>$weibo['attitudes_count'],
-                    'reposts_count' =>$weibo['reposts_count'],
+                $weibo = Weibo::where('id',$model->repost_id)->first();
+                if($weibo){
+                    $weibo = $weibo->toArray();
+                    $wb = [
+                        'id' =>$weibo['id'],
+                        'weibo用户名' =>$weibo['screen_name'],
+                        'text' =>$weibo['text'],
+                        'weibo_created_at' =>$weibo['weibo_created_at'],
+                        'comments_count' =>$weibo['comments_count'],
+                        'attitudes_count' =>$weibo['attitudes_count'],
+                        'reposts_count' =>$weibo['reposts_count'],
+                    ];
+                }else{
+                    $wb['data'] = '数据被误删除';
+                }
 
-                ];
                 return new Table(['key','value'], $wb);
             }
         });
