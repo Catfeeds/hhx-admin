@@ -12,10 +12,12 @@
 <body>
 <div>
     <div class ="daily-title">
-        <div class="alert alert-success" role="alert">日期：{{$yesterDate}}</div>
-        <div class="alert alert-info" role="alert">周{{$week}}</div>
-        <div class="alert alert-warning" role="alert">总结：{{$daily->summary}}</div>
-        <div class="alert alert-danger" role="alert">成长：{{$daily->grow_up}}</div>
+        <div class="alert alert-success" role="alert">
+            <p class="text-muted daily-text"> 日期：{{$yesterDate}} </p>
+            <p class="text-primary daily-text"> 星期：周{{$week}} </p>
+            <p class="text-success daily-text"> 总结：{{$daily->summary}} </p>
+            <p class="text-warning daily-text"> 成长：{{$daily->grow_up}} </p>
+        </div>
     </div>
     <div class ="daily-img-list">
         <div class ="daily-img">
@@ -45,6 +47,27 @@
                 @endforeach
                 <li class="list-group-item list-group-item-success">共：{{count($interest_logs)}}</li>
             </ul>
+        </div>
+    @endif
+    @if(count($weibos) >0)
+        <div class ="daily-title">
+                <div class ="daily-img">
+                    <h4 class="text-danger daily-text">WeiBo</h4>
+                    @foreach($weibos as $key=> $weibo)
+                        <p class="text-muted daily-text">{{$key+1}}</p>
+                        <p class="text-primary daily-text">{{$weibo['screen_name']}}</p>
+                        <p class="text-success daily-text">{!! $weibo['text'] !!}</p>
+                        <p class="text-warning daily-text">{{$weibo['weibo_created_at']}}</p>
+                        @if($weibo['pic_num']>1 && count($weibo['pics'])>0)
+                            @foreach($weibo['pics'] as $pic)
+                                <img src="{{asset('storage/'.$pic)}}" style="width:20%;height: 20%" class="img-rounded">
+                            @endforeach
+                        @endif
+                        @if($weibo['pic_num'] ==1)
+                            <img src="{{asset('storage/'.$weibo['thumbnail_pic'])}}" class="img-rounded">
+                        @endif
+                    @endforeach
+                </div>
         </div>
     @endif
 </div>

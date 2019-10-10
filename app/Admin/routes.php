@@ -22,6 +22,7 @@ Route::group([
     $router->resource('yyy', 'YyyController');
     $router->resource('mycf', 'MycfController');
     $router->resource('wqf', 'WqfController');
+    $router->resource('yeung', 'YeungController');
     $router->resource('net_ease', 'NetEaseController');
     $router->resource('csv', 'CsvController');
     $router->resource('weibo_user', 'WeiboUserController');
