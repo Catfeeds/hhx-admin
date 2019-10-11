@@ -164,7 +164,7 @@ class DirectionLogController extends Controller
     {
         return $content->header('花销分布')
             ->row(function (Row $row) {
-                $row->column(6, function (Column $column){
+                $row->column(4, function (Column $column){
                     $data = DirectionLog::getData(1);
                     $dt =[];
                     foreach($data as$k=> $da){
@@ -185,7 +185,48 @@ class DirectionLogController extends Controller
                     ];
                     $column->row(new Box('本周花销', HhxEchart::pie($options)));
                 });
+                $row->column(4, function (Column $column){
+                    $data = DirectionLog::getData(2);
+                    $dt =[];
+                    foreach($data as$k=> $da){
+                        $d['name'] = $k;
+                        $d['value'] = $da;
+                        $dt[] = $d;
+                    }
+                    $chartData = [
+                        'title' => '本月花销',
+                        'legends' => array_keys($data),
+                        'seriesName' => '总占比',
+                        'seriesData' => $dt
+                    ];
+                    $options = [
+                        'chartId' => 7,
+                        'height' => '500px',
+                        'chartJson' => json_encode($chartData)
+                    ];
+                    $column->row(new Box('本月花销', HhxEchart::pie($options)));
+                });
+                $row->column(4, function (Column $column){
+                    $data = DirectionLog::getData(3);
+                    $dt =[];
+                    foreach($data as$k=> $da){
+                        $d['name'] = $k;
+                        $d['value'] = $da;
+                        $dt[] = $d;
+                    }
+                    $chartData = [
+                        'title' => '本年花销',
+                        'legends' => array_keys($data),
+                        'seriesName' => '总占比',
+                        'seriesData' => $dt
+                    ];
+                    $options = [
+                        'chartId' => 8,
+                        'height' => '500px',
+                        'chartJson' => json_encode($chartData)
+                    ];
+                    $column->row(new Box('本年花销', HhxEchart::pie($options)));
+                });
             });
-
         }
 }

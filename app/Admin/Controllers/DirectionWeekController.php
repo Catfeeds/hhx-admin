@@ -9,9 +9,13 @@ use Carbon\Carbon;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
+use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
+use Encore\Admin\Layout\Row;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Box;
 use Encore\Admin\Widgets\Table;
+use Encore\HhxEchart\HhxEchart;
 
 class DirectionWeekController extends Controller
 {
@@ -59,4 +63,31 @@ class DirectionWeekController extends Controller
 
         return $grid;
     }
+
+//    public function weekLine(Content $content){
+//        return $content->header('echarts')
+//            ->row(function (Row $row) {
+//                $row->column(6, function (Column $column) {
+//                    $data = DirectionLog::getData(1);
+//                    $dt =[];
+//                    foreach ($data as $k=>$da){
+//                        $d['name'] = $k;
+//                        $d['value'] = $da;
+//                        $dt[] = $d;
+//                    }
+//                    $chartData = [
+//                        'title' => '本周花销',
+//                        'legends' => array_key($data),
+//                        'seriesName' => '占比',
+//                        'seriesData' => $dt
+//                    ];
+//                    $options = [
+//                        'chartId' => 6,
+//                        'height' => '500px',
+//                        'chartJson' => json_encode($chartData)
+//                    ];
+//                    $column->row(new Box('饼状图', HhxEchart::pie($options)));
+//                });
+//            });
+//    }
 }
