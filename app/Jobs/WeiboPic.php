@@ -42,9 +42,9 @@ class WeiboPic implements ShouldQueue
                     $url = $weibo->thumbnail_pic;
                     $num = $num +1;
                     $e = time().$num .'.jpg';
-                    $filename ='uploads/new_weibo/'.$e;
+                    $filename ='/storage/weibo_pic_h/'.$e;
                     $client = new Client(['verify' => false]);  //忽略SSL错误
-                    $data[$weibo->id] = 'new_weibo/'.$e;
+                    $data[$weibo->id] = 'weibo_pic_h/'.$e;
                     $client->get($url, ['save_to' => public_path($filename)]);
                 }
             }
@@ -63,10 +63,10 @@ class WeiboPic implements ShouldQueue
                     $url = $pic->url;
                     $num = $num +1;
                     $e = time().$num .'.jpg';
-                    $filename ='uploads/weibo_pics/'.$e;
+                    $filename ='storage/weibo_pic_p/'.$e;
                     $client = new Client(['verify' => false]);  //忽略SSL错误
                     $client->get($url, ['save_to' => public_path($filename)]);
-                    $pic ->url = 'weibo_pics/'.$e;
+                    $pic ->url = 'weibo_pic_p/'.$e;
                     $pic->save();
 
                 }

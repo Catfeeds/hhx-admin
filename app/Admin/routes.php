@@ -9,7 +9,6 @@ Route::group([
     'namespace'     => config('admin.route.namespace'),
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
-
     $router->get('/', 'HomeController@index')->name('admin.home');
     $router->resource('damai', 'DamaiController');
     $router->resource('ctrip', 'CtripController');
@@ -22,6 +21,7 @@ Route::group([
     $router->resource('yyy', 'YyyController');
     $router->resource('mycf', 'MycfController');
     $router->resource('wqf', 'WqfController');
+    $router->resource('yeung', 'YeungController');
     $router->resource('net_ease', 'NetEaseController');
     $router->resource('csv', 'CsvController');
     $router->resource('weibo_user', 'WeiboUserController');

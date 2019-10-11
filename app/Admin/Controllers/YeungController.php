@@ -13,7 +13,7 @@ use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Encore\Admin\Widgets\Table;
 
-class WqfController extends Controller
+class YeungController extends Controller
 {
     use HasResourceActions;
 
@@ -23,8 +23,8 @@ class WqfController extends Controller
      * @param Content $content
      * @return Content
      */
-    protected $fileName = '吴青峰';
-    protected $wei_id = '1822796164';
+    protected $fileName = '楊千嬅';
+    protected $wei_id = '1692801804';
     public function index(Content $content)
     {
         return $content
@@ -85,7 +85,7 @@ class WqfController extends Controller
     protected function grid()
     {
         $grid = new Grid(new Weibo);
-        $grid->model()->where('is_flag', '=', 0)->where('weibo_id',$this->wei_id)->orderBy('weibo_info_id', 'desc');
+        $grid->model()->where('is_flag', '=', 0)->where('weibo_id',$this->wei_id)->orderBy('weibo_created_at', 'desc');
         $grid->id('Id');
         $grid->screen_name('微博用户名')->modal('用户信息', function ($model) {
             $user = WeiboUser::where('weibo_id',$model->weibo_id)->select('screen_name','description','follow_count',
@@ -95,7 +95,8 @@ class WqfController extends Controller
             }else{
                 $user['gender'] ='girl';
             }
-            $user['avatar_hd'] = '<img src=" '.env('APP_URL')."/storage/".$user["avatar_hd"].'">';
+            $user['avatar_hd'] = '<img src=" '.env('APP_URL')."/storage/
+            ".$user["avatar_hd"].'">';
             return new Table(['key', 'value'], $user);
         });
         $grid->column('text')->display(function () {
@@ -112,7 +113,7 @@ class WqfController extends Controller
                     $num ++;
                     $data_u[$num] = '<img src=" '.env('APP_URL')."/storage/".$pic->url.'">';
                 }
-            }elseif($model->pic_num ==1 && $model->thumbnail_pic!=''){
+            }elseif($model->pic_num == 1){
                 $data_u['1'] = '<img src=" '.env('APP_URL')."/storage/".$model->thumbnail_pic .'">';
             }
             else{
@@ -143,7 +144,6 @@ class WqfController extends Controller
                 }else{
                     $wb['data'] = '数据被误删除';
                 }
-
                 return new Table(['key','value'], $wb);
             }
         });

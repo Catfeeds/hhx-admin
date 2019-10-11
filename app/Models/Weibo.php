@@ -12,38 +12,46 @@ class Weibo extends Model
 {
     protected $guarded=[];
     public function saveData($data,$us){
+        $data_all =[];
+        $pic_all = [];
         foreach ($data as $value){
-            if(!$value || ($us['status'] ==1 && $value['mblog']['id'] <= $us['flag'])){
-                break;
-            }
-            if(isset($value['mblog']['retweeted_status'])){
-                $data_one = $this->parseData($value['mblog']['retweeted_status']);
-                $data_one['is_flag'] =1;
-                $new_id = DB::table('weibos')->insertGetId($data_one);
-                $data_two = $this->parseData($value['mblog']);
-                $data_two['repost_id'] = $new_id;
-                print($this->id);
+            if(!isset($value['mblog'])||(!$value || ($us['status'] ==1 && $value['mblog']['id'] <= $us['flag']))){
+                continue;
             }else{
-                $data_two = $this->parseData($value['mblog']);
-            }
-            $data_two['scheme'] =$value['scheme'];
-            $data_all[] =$data_two;
-            if($value['mblog']['pic_num']>1){
-                foreach ($value['mblog']['pics'] as $pic){
-                    $pic_us['weibo_info_id'] = $value['mblog']['id'];
-                    $pic_us['url'] = $pic['url'];
-                    $pic_us['created_at'] = Carbon::now();
-                    $pic_all[] = $pic_us;
+                if(isset($value['mblog']['retweeted_status'])){
+                    $data_one = $this->parseData($value['mblog']['retweeted_status']);
+                    $data_one['is_flag'] =1;
+                    $new_id = DB::table('weibos')->insertGetId($data_one);
+                    $data_two = $this->parseData($value['mblog']);
+                    $data_two['repost_id'] = $new_id;
+                    print($this->id);
+                }else{
+                    $data_two = $this->parseData($value['mblog']);
+                }
+                $data_two['scheme'] =$value['scheme'];
+                $data_all[] = $data_two;
+                if($value['mblog']['pic_num']>1){
+                    foreach ($value['mblog']['pics'] as $pic){
+                        $pic_us['weibo_info_id'] = $value['mblog']['id'];
+                        $pic_us['url'] = $pic['url'];
+                        $pic_us['created_at'] = Carbon::now();
+                        $pic_all[] = $pic_us;
+                    }
                 }
             }
         }
-        if(isset($pic_all) && !empty($data_all)){
-            DB::table('weibo_pics')->insert($pic_all);
-            DB::table('weibos')->insert($data_all);
+
+        if(count($pic_all)>0 || count($data_all)>0){
+            if(count($pic_all)>0){
+                DB::table('weibo_pics')->insert($pic_all);
+            }
+            if($data_all>0){
+                DB::table('weibos')->insert($data_all);
+            }
+            unset($data_all);
+            unset($pic_all);
+            dispatch(new WeiboPic());
         }
-        unset($data_all);
-        unset($pic_all);
-        dispatch(new WeiboPic());
     }
 
     public function parseData($data){
