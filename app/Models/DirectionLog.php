@@ -29,6 +29,7 @@ class DirectionLog extends Model
     }
 
     static public function getData($type =1){
+        $now = time();
         switch ($type){
             case 1:
                 $start = date("Y-m-d",strtotime("this week"));
@@ -37,11 +38,10 @@ class DirectionLog extends Model
                 $start = date("Y-m-d",strtotime("this mouth"));
                 break;
             case 3:
-                $start = date("Y-m-d",strtotime("this year"));
+                $start = date('Y-m-d', mktime(0, 0,0, 1, 1, date('Y', $now)));
                 break;
             default:
                 $start = '2019-01-01';
-
         }
         $directions = Direction::query()->select('name','id')->get();
         foreach($directions as $direction){
