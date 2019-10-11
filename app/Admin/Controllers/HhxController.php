@@ -87,19 +87,32 @@ class HhxController extends Controller
     protected function grid()
     {
         $grid = new Grid(new Weibo);
+        $grid->header(function ($query) {
+            $user = WeiboUser::where('weibo_id',$this->wei_id)->select('screen_name','description','avatar_hd')->first()->toArray();
+            return '
+                    <div class="hhx1" style="width: 50%;float: left">
+                        <p class="text-warning daily-text">'.$user["screen_name"].'</p>
+                        <p class="text-success daily-text">'.$user["description"].'</p>
+                    </div>
+                    <div class ="hhx" style="float: left">
+                        <img src=" '.env('APP_URL')."/storage/".$user["avatar_hd"].'" class="img-rounded" style="width:20%;">
+                    </div>
+';
+        });
         $grid->model()->where('is_flag', '=', 0)->where('weibo_id',$this->wei_id)->orderBy('weibo_info_id', 'desc');
         $grid->id('Id');
-        $grid->screen_name('微博用户名')->modal('用户信息', function ($model) {
-            $user = WeiboUser::where('weibo_id',$model->weibo_id)->select('screen_name','description','follow_count',
-                'followers_count', 'gender','statuses_count' ,'avatar_hd' )->first()->toArray();
-            if($user['gender'] == 'm'){
-                $user['gender'] ='boy';
-            }else{
-                $user['gender'] ='girl';
-            }
-            $user['avatar_hd'] = '<img src=" '.env('APP_URL')."/storage/".$user["avatar_hd"].'">';
-            return new Table(['key', 'value'], $user);
-        });
+        $grid->screen_name('微博用户名');
+//            ->modal('用户信息', function ($model) {
+//            $user = WeiboUser::where('weibo_id',$model->weibo_id)->select('screen_name','description','follow_count',
+//                'followers_count', 'gender','statuses_count' ,'avatar_hd' )->first()->toArray();
+//            if($user['gender'] == 'm'){
+//                $user['gender'] ='boy';
+//            }else{
+//                $user['gender'] ='girl';
+//            }
+//            $user['avatar_hd'] = '<img src=" '.env('APP_URL')."/storage/".$user["avatar_hd"].'">';
+//            return new Table(['key', 'value'], $user);
+//        });
         $grid->column('text')->display(function () {
             return $this->text;
         });
