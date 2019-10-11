@@ -102,7 +102,7 @@ class LuckController extends Controller
 
         $show->id('Id');
         $show->intro('简述');
-        $show->content('内容');
+        $show->content('内容')->unescape();
         $show->created_at('创建时间');
         $show->updated_at('更新时间');
 
