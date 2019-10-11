@@ -34,12 +34,10 @@ class WeiboUser extends Model
                 $us['flag'] = isset($flag)? $flag :0;
                 $us['status'] = 1;
             }
-
         }
         dispatch(new WeiboUserPic());
         return $us;
     }
-
 
 
     public function SearchData($data){

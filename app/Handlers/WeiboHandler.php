@@ -26,7 +26,7 @@ class WeiboHandler
 
 //    主程序
     static public function getData(){
-        $weibo_users = WeiboUser::select('screen_name','weibo_id')->get();
+        $weibo_users = WeiboUser::select('screen_name','weibo_id')->whereStatus(1)->get();
         foreach ($weibo_users as $weibo_user){
             $uid=$weibo_user->weibo_id;
             $luicode = '10000011';
@@ -41,9 +41,8 @@ class WeiboHandler
             $url1 = 'https://m.weibo.cn/api/container/getIndex?uid='.$uid.'&luicode='.$luicode.'&lfid'.$lfid.'&type='.$type.'&value='.$value.'&containerid='.$containerid1;
             $data1 = self::getHtml($url1)['data']['userInfo'];
             $weiboUser = new WeiboUser();
-            $us =$weiboUser ->saveData($data1);
-            $count = ceil($data1['statuses_count']/10);
-            for($i=1;$i<= 5;$i++){
+            $us = $weiboUser ->saveData($data1);
+            for($i=1;$i<= 2;$i++){
                 print($i);
                 $url2 = 'https://m.weibo.cn/api/container/getIndex?uid='.$uid.'&luicode='.$luicode.'&lfid'.$lfid.'&type='.$type.'&value='.$value.'&containerid='.$containerid2.'&page='.$i;
                 $data_all= self::getHtml($url2)['data']['cards'];

@@ -42,7 +42,7 @@ class Weibo extends Command
      */
     public function handle()
     {
-//        WeiboHandler::getData();
+        WeiboHandler::getData();
 //        weibo tupian
 //        $num = 0;
 //        \App\Models\Weibo::whereNull('updated_at')->whereNotNull('thumbnail_pic')->select('id','thumbnail_pic')->chunk(100, function ($weibos)use($num) {
@@ -80,11 +80,11 @@ class Weibo extends Command
 //            }
 //        });
 //         删除微博重复数据
-        $hh = \App\Models\Weibo::query()->pluck('weibo_info_id','id')->toArray();
-        $hh2 =array_flip(array_flip($hh));
-        $h = array_diff_assoc($hh,$hh2);
-        $t = array_keys($h);
-        \App\Models\Weibo::destroy($t);
+//        $hh = \App\Models\Weibo::query()->pluck('weibo_info_id','id')->toArray();
+//        $hh2 =array_flip(array_flip($hh));
+//        $h = array_diff_assoc($hh,$hh2);
+//        $t = array_keys($h);
+//        \App\Models\Weibo::destroy($t);
 
 //        $weiboUsers = WeiboUser::select('id','avatar_hd','cover_image_phone')->whereNull('updated_at')->get();
 //        $num =0;
