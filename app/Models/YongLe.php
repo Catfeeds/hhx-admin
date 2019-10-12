@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class YongLe extends Model
 {
-    //
+    protected $table = 'yongles';
+    protected $primaryKey = 'id';
 }

@@ -8,6 +8,10 @@
 
 namespace App\Handlers;
 
+use App\Models\YongLe;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 class YongLeHandler
 {
     static $URL_PRE = "https://www.228.com.cn/s/";
@@ -60,7 +64,7 @@ class YongLeHandler
         $key ='yl:'.$name.':'.$data["cityname"];
         $redis->hmset($key,
             array('vname' => $data["vname"],
-                'yname' => $data["yname"],
+                'yname' => $data["name"],
                 'status' => $data["status"],
                 'performer' => $data["performer"],
                 'prices'=>$data["prices"],
@@ -75,15 +79,43 @@ class YongLeHandler
      * @param $datas
      */
     static public function saveMysql($datas){
-        $yongle = new \App\Models\YongLe();
-
+        $arr = [];
+        $data_us = YongLe::query()->pluck('cityname','yname')->toArray();
+        foreach ($datas as $data){
+           $ar=array('vname' => $data["vname"],
+               'yname' => $data["name"],
+               'status' => $data["status"],
+               'performer' => $data["performer"],
+               'prices'=>$data["prices"],
+               'cityname'=>$data["cityname"],
+               'enddate'=>$data["enddate"],
+               'created_at' =>Carbon::now()
+           );
+           if(!isset($data_us[$data["name"]])){
+               $arr[] = $ar;
+           }
+        }
+        if(count($arr)>0){
+            DB::table('yongles')->insert($arr);
+        }
     }
 
 
+    /**
+     * 获取数据
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     static public function getData(){
-       $name = '李荣浩';
-       $data = self::sendUrl($name);
-       self::saveRedis($data,$name);
+        $names = ['田馥甄','吴青峰','焦安溥','戴佩妮','林俊杰','杨千嬅','杨乃文'];
+        foreach ($names as $name){
+            $data = self::sendUrl($name);
+            if($data){
+                foreach ($data as $da){
+                    self::saveRedis($da,$name);
+                }
+                self::saveMysql($data);
+            }
+        }
        dd('end');
 
     }
