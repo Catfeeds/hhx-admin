@@ -2,7 +2,6 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Yongle;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
