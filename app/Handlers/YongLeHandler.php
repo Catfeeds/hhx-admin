@@ -80,9 +80,12 @@ class YongLeHandler
     }
 
 
+    static public function getData(){
+       $name = '李荣浩';
+       $data = self::sendUrl($name);
+       self::saveRedis($data,$name);
+       dd('end');
 
-
-
-
+    }
 
 }
