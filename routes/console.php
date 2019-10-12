@@ -22,6 +22,9 @@ use Illuminate\Foundation\Inspiring;
 \Illuminate\Support\Facades\Artisan::command('ctrips', function () {
     \App\Handlers\CtripHandler::getData();
 })->describe('携程同步');
+\Illuminate\Support\Facades\Artisan::command('yongle', function () {
+    \App\Handlers\YongLeHandler::getData();
+})->describe('永乐同步');
 \Illuminate\Support\Facades\Artisan::command('dailys', function () {
     \App\Handlers\DailyHandler::getHhx();
 })->describe('日报');

@@ -45,7 +45,6 @@ class DailyHandler
             'yesterDate'=>$yesterDate,
             'weibos' =>$weibos
         ];
-//        dd($weibos);
         return $data;
     }
 
