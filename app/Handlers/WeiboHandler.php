@@ -11,6 +11,7 @@ namespace App\Handlers;
 
 use App\Models\Weibo;
 use App\Models\WeiboUser;
+use Illuminate\Support\Facades\Log;
 
 class WeiboHandler
 {
@@ -55,6 +56,7 @@ class WeiboHandler
                 WeiboUser::where('weibo_id',$us['weibo_id'])->update(['status'=>1]);
             }
         }
+        Log::info(date('Y-m-d').'weibo its ok');
         dd('结束');
 
     }
