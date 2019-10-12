@@ -80,7 +80,7 @@ class YongLeController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new Yongle);
+        $grid = new Grid(new YongLe);
 
         $grid->id('Id');
         $grid->vname('场馆');
@@ -104,7 +104,7 @@ class YongLeController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(Yongle::findOrFail($id));
+        $show = new Show(YongLe::findOrFail($id));
 
         $show->id('Id');
         $show->vname('场馆');
@@ -127,7 +127,7 @@ class YongLeController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new Yongle);
+        $form = new Form(new YongLe);
 
         $form->text('vname', '场馆');
         $form->text('yname', '演唱会名字');
