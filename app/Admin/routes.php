@@ -51,4 +51,5 @@ Route::group([
     $router->resource('wish_list', 'WishListController');
     $router->resource('db_music_top', 'DbMusicTopController');
     $router->resource('luck', 'LuckController');
+    $router->resource('yongle', 'YongLeController');
 });
