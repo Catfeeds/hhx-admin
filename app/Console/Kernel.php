@@ -24,11 +24,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('damais')->dailyAt('14:52');
-         $schedule->command('ctrips')->dailyAt('14:54');
-         $schedule->command('yongle')->dailyAt('14:56');
-         $schedule->command('dailys')->dailyAt('14:58');
-         $schedule->command('weibos')->dailyAt('15:00');
+         $schedule->command('damais')->dailyAt('00:10');
+         $schedule->command('ctrips')->dailyAt('01:10');
+         $schedule->command('yongle')->dailyAt('02:10');
+         $schedule->command('dailys')->dailyAt('03:10');
+         $schedule->command('weibos')->dailyAt('04:10');
     }
 
     /**
