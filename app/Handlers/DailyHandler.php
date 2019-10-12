@@ -56,6 +56,6 @@ class DailyHandler
             $message->subject('[ daily] 日报 - ' .date('Y-m-d'));
             $message->to($toMail);
         });
-        Log::info('its ok');
+        Log::info(date('Y-m-d').'daily its ok');
     }
 }

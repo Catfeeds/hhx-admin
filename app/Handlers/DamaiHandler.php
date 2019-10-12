@@ -88,7 +88,7 @@ class DamaiHandler{
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     static public function carbonGet(){
-        Log::info(time().'damai已经执行');
+
         $names = ["田馥甄","戴佩妮","杨千嬅","吴青峰"];
         foreach($names as $name){
             $datas = self::getUrl($name);
@@ -103,6 +103,7 @@ class DamaiHandler{
             }
         }
         unset($names);
+        Log::info(date('Y-m-d').'damai its ok');
     }
 
 }

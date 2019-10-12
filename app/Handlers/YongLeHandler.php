@@ -11,6 +11,7 @@ namespace App\Handlers;
 use App\Models\YongLe;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class YongLeHandler
 {
@@ -116,6 +117,7 @@ class YongLeHandler
                 self::saveMysql($data);
             }
         }
+        Log::info(date('Y-m-d').'yongle its ok');
        dd('end');
 
     }
