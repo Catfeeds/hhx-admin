@@ -58,4 +58,5 @@ class DailyHandler
         });
         Log::info(date('Y-m-d').'daily its ok');
     }
+    
 }
