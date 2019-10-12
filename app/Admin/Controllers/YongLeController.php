@@ -128,6 +128,7 @@ class YongLeController extends Controller
     protected function form()
     {
         $form = new Form(new YongLe);
+        
 
         $form->text('vname', '场馆');
         $form->text('yname', '演唱会名字');
