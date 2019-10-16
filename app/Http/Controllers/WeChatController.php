@@ -27,8 +27,10 @@ class WeChatController extends Controller
         $app->server->push(function ($message)use($app) {
             switch ($message['MsgType']) {
                 case 'event':
+                    Log::info($message['Event']);
                     if($message['Event'] == 'subscribe'){
                         $openid = $message['FromUserName'];
+                        Log::info($openid);
                         $user_info = $app->user->get($openid);
                         Log::info('USER'.json_encode($user_info));
                     }
