@@ -9,6 +9,8 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Support\Facades\Log;
+
 class WeChatController extends Controller
 {
     /**
