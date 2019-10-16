@@ -25,4 +25,5 @@ Route::post('/uploadFiles', 'UploadsController@uploadImg');
 Route::get('/top250','Home\DoubanController@top250');
 Route::get('/music_top250','Home\DbMusicTopController@top250');
 Route::get('/daily','Home\DailyController@index');
+Route::get('/daily_week','Home\DailyController@week');
 

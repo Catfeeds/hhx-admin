@@ -58,5 +58,16 @@ class DailyHandler
         });
         Log::info(date('Y-m-d').'daily its ok');
     }
+
+//    static public function getHhxWeek(){
+//        $view = 'Emails.Week';
+//        $data = DailyHandler::getWeekData();
+//        $toMail = 'hhx06@outlook.com';
+//        Mail::send($view,$data ,function ($message) use ($toMail) {
+//            $message->subject('[ week] 周报 - ' .date('Y-m-d'));
+//            $message->to($toMail);
+//        });
+//        Log::info(date('Y-m-d').'week its ok');
+//    }
     
 }
