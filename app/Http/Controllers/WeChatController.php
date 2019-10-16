@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use EasyWeChat\Kernel\Messages\Text;
 use Illuminate\Support\Facades\Log;
 
 class WeChatController extends Controller
@@ -18,7 +19,7 @@ class WeChatController extends Controller
      *
      * @return string
      */
-    public function serve()
+    public function serve1()
     {
         Log::info('request arrived.'); # 注意：Log 为 Laravel 组件，所以它记的日志去 Laravel 日志看，而不是 EasyWeChat 日志
 
@@ -55,6 +56,14 @@ class WeChatController extends Controller
             }
         });
 
+        return $app->server->serve();
+    }
+
+    public function server(){
+        Log::info('request arrived.');
+        $app = app('wechat.official_account');
+        $message = new Text('自动发消息是可行的吗？');
+        $app->customer_service->message($message)->to('oUCgBwP5gOn79QGN60Fb9GS19kwk')->send();
         return $app->server->serve();
     }
 
