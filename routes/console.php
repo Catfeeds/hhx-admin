@@ -36,7 +36,7 @@ use Illuminate\Foundation\Inspiring;
 })->describe('微博定时任务');
 \Illuminate\Support\Facades\Artisan::command('send', function () {
     \App\Handlers\DailyHandler::sendMessage();
-})->describe('微博定时任务');
+})->describe('微任务');
 
 
 

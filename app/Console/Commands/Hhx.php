@@ -38,6 +38,6 @@ class Hhx extends Command
      */
     public function handle()
     {
-        Log::info('hhx is success');
+        \App\Handlers\DailyHandler::sendMessage();
     }
 }
