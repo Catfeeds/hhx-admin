@@ -59,7 +59,7 @@ class WeChatController extends Controller
         return $app->server->serve();
     }
 
-    public function server(){
+    public function serve(){
         Log::info('request arrived.');
         $app = app('wechat.official_account');
         $message = new Text('自动发消息是可行的吗？');
