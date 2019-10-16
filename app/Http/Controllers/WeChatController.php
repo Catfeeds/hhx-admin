@@ -8,9 +8,9 @@
 
 namespace App\Http\Controllers;
 
-
-use EasyWeChat\Kernel\Messages\Text;
 use Illuminate\Support\Facades\Log;
+use EasyWeChat\Kernel\Messages\News;
+use EasyWeChat\Kernel\Messages\NewsItem;
 
 class WeChatController extends Controller
 {
@@ -27,16 +27,24 @@ class WeChatController extends Controller
         $app->server->push(function ($message)use($app) {
             switch ($message['MsgType']) {
                 case 'event':
-                    Log::info($message['Event']);
                     if($message['Event'] == 'subscribe'){
-                        $openid = $message['FromUserName'];
-                        Log::info($openid);
-                        $user_info = $app->user->get($openid);
-                        Log::info('USER'.json_encode($user_info));
+                       return '感谢您关注一个足够无聊的公众号';
                     }
                     return '收到事件消息';
                     break;
                 case 'text':
+                    if($message['Content'] =='daily' && $message['FromUserName'] =='oUCgBwP5gOn79QGN60Fb9GS19kwk'){
+                        //发送图文消息
+                        $items = [
+                            new NewsItem([
+                                'title'       => 'daily',
+                                'description' => 'hhx06',
+                                'url'         => 'http://35.220.222.161/daily',
+                            ]),
+                        ];
+                        $news = new News($items);
+                        return new News([$news]);
+                    }
                     return '已经收到您的消息,可惜我并不会回复您的。';
                     break;
                 case 'image':
