@@ -102,15 +102,11 @@ class DailyHandler
 
     static public function sendMessage(){
         Log::info('START');
-
         $app = app('wechat.official_account');
-
         $message = new Text('自动发消息是可行的吗？');
         $app->customer_service->message($message)->to('oUCgBwP5gOn79QGN60Fb9GS19kwk')->send();
         Log::info('END');
         return $app->server->serve();
-
-
     }
     
 }
