@@ -35,7 +35,7 @@ class DirectionLog extends Model
                 $start = date("Y-m-d",strtotime("this week"));
                 break;
             case 2:
-                $start = date("Y-m-d",strtotime("this mouth"));
+                $start = date('Y-m-01', strtotime(date("Y-m-d")));
                 break;
             case 3:
                 $start = date('Y-m-d', mktime(0, 0,0, 1, 1, date('Y', $now)));
@@ -49,4 +49,17 @@ class DirectionLog extends Model
         }
         return $data;
     }
+
+
+    static public function getSummaryData(){
+        $week_again = date("Y-m-d",strtotime("this week"));
+        $mouth_again = date('Y-m-01', strtotime(date("Y-m-d")));
+
+        $week = DirectionLog::whereBetween('created_at',[$week_again,Carbon::now()])->sum('money');
+        $mouth = DirectionLog::whereBetween('created_at',[$mouth_again,Carbon::now()])->sum('money');
+        return '<h3><span class="label label-info">本周合计'.$week.'</span><span class="label label-success">本月合计'.$mouth.'</span></h3>';
+
+    }
+
+
 }

@@ -85,11 +85,7 @@ class DailyController extends Controller
     {
         $grid = new Grid(new Daily);
         $grid->header(function () {
-            $week_again = date("Y-m-d",strtotime("this week"));
-            $mouth_again = date("Y-m-d",strtotime("this mouth"));
-            $week = DirectionLog::whereBetween('created_at',[$week_again,Carbon::now()])->sum('money');
-            $mouth = DirectionLog::whereBetween('created_at',[$mouth_again,Carbon::now()])->sum('money');
-            return '本周合计:'.$week.',本月合计:'.$mouth;
+            return DirectionLog::getSummaryData();
         });
         $grid->id('Id');
         $grid->Img('每日图片')->image();
