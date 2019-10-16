@@ -28,6 +28,9 @@ use Illuminate\Foundation\Inspiring;
 \Illuminate\Support\Facades\Artisan::command('dailys', function () {
     \App\Handlers\DailyHandler::getHhx();
 })->describe('日报');
+\Illuminate\Support\Facades\Artisan::command('daily_week', function () {
+    \App\Handlers\DailyHandler::getHhxWeek();
+})->describe('周报');
 \Illuminate\Support\Facades\Artisan::command('weibos', function () {
     \App\Handlers\WeiboHandler::getData();
 })->describe('微博定时任务');
