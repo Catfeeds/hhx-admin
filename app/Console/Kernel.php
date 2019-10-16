@@ -30,6 +30,8 @@ class Kernel extends ConsoleKernel
          $schedule->command('weibos')->dailyAt('04:10');
          $schedule->command('dailys')->dailyAt('06:10');
          $schedule->command('daily_week')->mondays();
+         $schedule->command('send')->dailyAt('14:35');
+
     }
 
     /**
