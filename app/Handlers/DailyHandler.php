@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 
+
 class DailyHandler
 {
     static public function getData(){
@@ -101,11 +102,11 @@ class DailyHandler
 
 
     static public function sendMessage(){
-        Log::info('START');
         $app = app('wechat.official_account');
-        $message = new Text('自动发消息是可行的吗？');
-        $app->broadcasting->sendText("今天天气晴", ['oUCgBwIWGQiMH1eg1N9mml5CT_sk','oUCgBwP5gOn79QGN60Fb9GS19kwk']);
-        Log::info('END');
+        $message = new Text('Hello world!');
+        $openId = 'oUCgBwP5gOn79QGN60Fb9GS19kwk';
+        $result = $app->customer_service->message($message)->to($openId)->send();
+//        $app->broadcasting->sendText("今天天气晴", ['oUCgBwIWGQiMH1eg1N9mml5CT_sk','oUCgBwP5gOn79QGN60Fb9GS19kwk']);
         return $app->server->serve();
     }
     
