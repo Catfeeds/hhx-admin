@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
          $schedule->command('yongle')->dailyAt('02:10');
          $schedule->command('weibos')->dailyAt('04:10');
          $schedule->command('dailys')->dailyAt('06:10');
+         $schedule->command('daily_week')->mondays();
     }
 
     /**
