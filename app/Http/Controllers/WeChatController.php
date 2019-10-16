@@ -25,6 +25,7 @@ class WeChatController extends Controller
 
         $app = app('wechat.official_account');
         $app->server->push(function ($message) {
+            Log::info('message'.$message);
             switch ($message['MsgType']) {
                 case 'event':
                     return '收到事件消息';
