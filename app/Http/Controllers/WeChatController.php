@@ -27,6 +27,7 @@ class WeChatController extends Controller
 //            return "欢迎关注 overtrue！";
 //        });
         $app->server->push(function ($message) {
+            Log::info('message'.json_encode($message));
             switch ($message['MsgType']) {
                 case 'event':
                     return '收到事件消息';
