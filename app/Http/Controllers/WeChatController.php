@@ -26,6 +26,7 @@ class WeChatController extends Controller
 //        $app->server->push(function($message){
 //            return "欢迎关注 overtrue！";
 //        });
+        Log::info('WHY');
         $app->server->push(function ($message) {
             Log::info('message'.json_encode($message));
             switch ($message['MsgType']) {
