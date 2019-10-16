@@ -104,7 +104,7 @@ class DailyHandler
         Log::info('START');
         $app = app('wechat.official_account');
         $message = new Text('自动发消息是可行的吗？');
-        $app->customer_service->message($message)->to('oUCgBwP5gOn79QGN60Fb9GS19kwk')->send();
+        $app->broadcasting->sendText("今天天气晴", ['oUCgBwIWGQiMH1eg1N9mml5CT_sk','oUCgBwP5gOn79QGN60Fb9GS19kwk']);
         Log::info('END');
         return $app->server->serve();
     }
