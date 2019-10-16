@@ -107,7 +107,7 @@ class DailyHandler
         $openId = 'oUCgBwP5gOn79QGN60Fb9GS19kwk';
         $result = $app->customer_service->message($message)->to($openId)->send();
 //        $app->broadcasting->sendText("今天天气晴", ['oUCgBwIWGQiMH1eg1N9mml5CT_sk','oUCgBwP5gOn79QGN60Fb9GS19kwk']);
-        return $app->server->serve();
+        return $result;
     }
     
 }
