@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
          $schedule->command('damais')->dailyAt('00:10');
          $schedule->command('ctrips')->dailyAt('01:10');
          $schedule->command('yongle')->dailyAt('02:10');
-         $schedule->command('dailys')->dailyAt('03:10');
          $schedule->command('weibos')->dailyAt('04:10');
+         $schedule->command('dailys')->dailyAt('06:10');
     }
 
     /**
