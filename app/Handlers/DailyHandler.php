@@ -13,6 +13,7 @@ use App\Models\InterestLog;
 use App\Models\Weibo;
 use App\Models\WeiboPics;
 use Carbon\Carbon;
+use EasyWeChat\Kernel\Messages\Text;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -103,9 +104,9 @@ class DailyHandler
         Log::info('START');
 
         $app = app('wechat.official_account');
-        $app->server->push(function ($message) {
-            return '自动发消息是可行的吗？';
-        });
+
+        $message = new Text('自动发消息是可行的吗？');
+        $app->customer_service->message($message)->to('oUCgBwP5gOn79QGN60Fb9GS19kwk')->send();
         Log::info('END');
         return $app->server->serve();
 
