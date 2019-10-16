@@ -42,7 +42,7 @@ class WeChatController extends Controller
                                 'url'         => 'http://35.220.222.161/daily',
                             ]),
                         ];
-                        return new News([$items]);
+                        return  new News($items);
                     }
                     return '已经收到您的消息,可惜我并不会回复您的。';
                     break;
