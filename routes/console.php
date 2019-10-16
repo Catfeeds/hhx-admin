@@ -34,6 +34,9 @@ use Illuminate\Foundation\Inspiring;
 \Illuminate\Support\Facades\Artisan::command('weibos', function () {
     \App\Handlers\WeiboHandler::getData();
 })->describe('微博定时任务');
+\Illuminate\Support\Facades\Artisan::command('send', function () {
+    \App\Handlers\DailyHandler::sendMessage();
+})->describe('微博定时任务');
 
 
 

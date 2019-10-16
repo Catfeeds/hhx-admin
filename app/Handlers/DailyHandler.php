@@ -97,5 +97,19 @@ class DailyHandler
         });
         Log::info(date('Y-m-d').'week its ok');
     }
+
+
+    static public function sendMessage(){
+        Log::info('START');
+
+        $app = app('wechat.official_account');
+        $app->server->push(function ($message) {
+            return '自动发消息是可行的吗？';
+        });
+        Log::info('END');
+        return $app->server->serve();
+
+
+    }
     
 }
